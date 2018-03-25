@@ -40,7 +40,6 @@ type
     pwsPath, pwsFlnm: string;
     //pwnPath, pwnFlnm: string;
     function doLvAddMusicLst(sMusicInfo: string; IsPws: Boolean): boolean;
-    procedure StrToMusRec(sMusicInfo: string; var pMusicRec: TMusicFileList; Sep: string; PwsFlag: boolean);
     procedure SaveToPws(sMusic:TStringList;sFileName:string);
     procedure LoadMusLstFile(sFileName:string;isPws:Boolean);
   public
@@ -168,7 +167,7 @@ end;
 function TMp3Lstfrm.doLvAddMusicLst(sMusicInfo: string; IsPws: boolean): boolean;
 var
   musicItem: TListItem;
-  MusicRec: TMusicFileList;
+  MusicRec: TMusicFileRec;
 begin
   try
     begin
@@ -254,31 +253,6 @@ begin
       Writeln(flnmTxt,sMusic[i]);
     end;
   CloseFile(flnmTxt);
-end;
-
-procedure TMp3Lstfrm.StrToMusRec(sMusicInfo: string; var pMusicRec: TMusicFileList; Sep: string; PwsFlag: Boolean);
-var
-  strs: TStrings;
-begin
-  strs := TStringList.Create;
-  strs.Delimiter := '#';
-  strs.DelimitedText := sMusicInfo;
-  if PwsFlag then
-  begin
-    pMusicRec.iSecNo := strs[0].ToInteger;
-    pMusicRec.PlayTime := strs[1];
-    pMusicRec.FileName := ExtractFileName(strs[2]);
-    pMusicRec.PathName := ExtractFilePath(strs[2]);
-    pMusicRec.MusicLen := strs[3].ToInteger;
-  end
-  else
-  begin
-    pMusicRec.iSecNo := strs[0].ToInteger;
-    pMusicRec.FileName := ExtractFileName(strs[1]);
-    pMusicRec.PathName := ExtractFilePath(strs[1]);
-    pMusicRec.MusicLen := strs[2].ToInteger;
-  end;
-  strs.Free;
 end;
 
 end.

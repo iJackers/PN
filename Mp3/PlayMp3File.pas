@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, bass, Vcl.ComCtrls, Vcl.StdCtrls, DispatchMp3File,
-  Vcl.ExtCtrls, Vcl.Buttons,spectrum_vis, Vcl.Imaging.pngimage;
+  Vcl.ExtCtrls, Vcl.Buttons,spectrum_vis, Vcl.Imaging.pngimage, Data.DB,
+  Data.Win.ADODB;
 
 type
   TPlayMp3Music = class(TForm)
@@ -28,6 +29,9 @@ type
     pbPaintFrame: TPaintBox;
     scrlbrPos: TScrollBar;
     imgbk: TImage;
+    conMusicList: TADOConnection;
+    qrySpecMusic: TADOQuery;
+    qryNormMusic: TADOQuery;
     procedure FormCreate(Sender: TObject);
     procedure FormCanResize(Sender: TObject; var NewWidth, NewHeight: Integer;
       var Resize: Boolean);
