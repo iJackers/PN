@@ -1,7 +1,4 @@
-﻿[btnLoadLst]
-Coordinates=122,10,78,58
-
-[btnStop]
+﻿[btnStop]
 Coordinates=358,10,59,58
 
 [pnlBtn]
@@ -38,7 +35,7 @@ Coordinates=181,146,90,36
 Coordinates=110,269,84,36
 
 []
-Coordinates=10,146,82,58
+Coordinates=122,10,78,58
 Visible=True
 
 [TimerRender]

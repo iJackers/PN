@@ -6,8 +6,8 @@ object PlayMp3Music: TPlayMp3Music
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #25773#25918#38899#20048
-  ClientHeight = 280
-  ClientWidth = 460
+  ClientHeight = 281
+  ClientWidth = 501
   Color = clBtnFace
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
@@ -16,15 +16,14 @@ object PlayMp3Music: TPlayMp3Music
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  OnCanResize = FormCanResize
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 13
   object statInfo: TStatusBar
     Left = 0
-    Top = 261
-    Width = 460
+    Top = 262
+    Width = 501
     Height = 19
     Panels = <
       item
@@ -42,59 +41,50 @@ object PlayMp3Music: TPlayMp3Music
   end
   object pnlBtn: TPanel
     Left = 0
-    Top = 229
-    Width = 460
+    Top = 230
+    Width = 501
     Height = 32
     Align = alBottom
     BevelKind = bkFlat
     BevelOuter = bvNone
     TabOrder = 2
-    object btnLoadLst: TBitBtn
-      Left = 8
-      Top = 1
-      Width = 58
-      Height = 25
-      Caption = #36733#20837
-      TabOrder = 0
-      OnClick = btnLoadLstClick
-    end
     object btnPlayMusic: TBitBtn
-      Left = 72
-      Top = 1
+      Left = 10
+      Top = 2
       Width = 58
       Height = 25
       Caption = #25773#25918
-      TabOrder = 1
+      TabOrder = 0
       OnClick = btnPlayMusicClick
     end
     object btnPause: TBitBtn
-      Left = 136
-      Top = 1
+      Left = 74
+      Top = 2
       Width = 58
       Height = 25
       Caption = #26242#20572
-      TabOrder = 2
+      TabOrder = 1
       OnClick = btnPauseClick
     end
     object btnStop: TBitBtn
-      Left = 200
-      Top = 1
+      Left = 138
+      Top = 2
       Width = 58
       Height = 25
       Caption = #20572#27490
-      TabOrder = 3
+      TabOrder = 2
       OnClick = btnStopClick
     end
   end
   object pnlTitle: TPanel
     Left = 0
     Top = 0
-    Width = 460
+    Width = 501
     Height = 41
     Align = alTop
     BevelKind = bkFlat
     BevelOuter = bvNone
-    Caption = #21335#26124#30334#30427#20248#23458#22478#24066#24191#22330' '#23450#26102#25773#25918#31995#32479
+    Caption = #21335#26124#30334#30427#20248#23458#22478#24066#24191#22330#23450#26102#25773#25918#31995#32479
     Font.Charset = GB2312_CHARSET
     Font.Color = clWindowText
     Font.Height = -19
@@ -106,7 +96,7 @@ object PlayMp3Music: TPlayMp3Music
   object pnlBody: TPanel
     Left = 0
     Top = 161
-    Width = 460
+    Width = 501
     Height = 67
     Align = alTop
     BevelKind = bkFlat
@@ -152,14 +142,14 @@ object PlayMp3Music: TPlayMp3Music
   object pnlpbframe: TPanel
     Left = 0
     Top = 41
-    Width = 460
+    Width = 501
     Height = 120
     Align = alTop
     TabOrder = 4
     object pbPaintFrame: TPaintBox
       Left = 1
       Top = 1
-      Width = 458
+      Width = 499
       Height = 103
       Align = alClient
       ExplicitLeft = 10
@@ -170,7 +160,7 @@ object PlayMp3Music: TPlayMp3Music
     object imgbk: TImage
       Left = 1
       Top = 1
-      Width = 458
+      Width = 499
       Height = 103
       Align = alClient
       Picture.Data = {
@@ -3804,7 +3794,7 @@ object PlayMp3Music: TPlayMp3Music
     object scrlbrPos: TScrollBar
       Left = 1
       Top = 104
-      Width = 458
+      Width = 499
       Height = 15
       Align = alBottom
       PageSize = 0
@@ -3826,7 +3816,6 @@ object PlayMp3Music: TPlayMp3Music
     Top = 16
   end
   object tmrMusLst: TTimer
-    Interval = 500
     OnTimer = tmrMusLstTimer
     Left = 152
     Top = 16

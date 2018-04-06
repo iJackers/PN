@@ -160,9 +160,10 @@ object Mp3Lstfrm: TMp3Lstfrm
       Height = 37
       Caption = #28165#31354#21015#34920'(&C)'
       TabOrder = 4
+      OnClick = btnClearMusLstClick
     end
     object btnSaveMusLst: TBitBtn
-      Left = 423
+      Left = 426
       Top = 4
       Width = 83
       Height = 37
@@ -196,6 +197,10 @@ object Mp3Lstfrm: TMp3Lstfrm
     object actSaveLst: TAction
       Caption = 'actSaveLst'
       OnExecute = actSaveLstExecute
+    end
+    object actClearFileList: TAction
+      Caption = 'actClearFileList'
+      OnExecute = actClearFileListExecute
     end
   end
 end
