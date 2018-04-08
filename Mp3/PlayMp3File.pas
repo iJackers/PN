@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, bass, Vcl.ComCtrls, Vcl.StdCtrls,
   DispatchMp3File, Vcl.ExtCtrls, Vcl.Buttons, spectrum_vis, Vcl.Imaging.pngimage,
-  Data.DB, UntConst, Data.Win.ADODB;
+  System.DateUtils, UntConst;
 
 type
   TPlayMp3Music = class(TForm)
@@ -28,9 +28,6 @@ type
     pbPaintFrame: TPaintBox;
     scrlbrPos: TScrollBar;
     imgbk: TImage;
-    conMusicList: TADOConnection;
-    qrySpecMusic: TADOQuery;
-    qryNormMusic: TADOQuery;
     procedure FormCreate(Sender: TObject);
     procedure btnPlayMusicClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -176,14 +173,14 @@ end;
 
 function TPlayMp3Music.LoadSetMusic(sSetMusic: TMusicFileRec): Boolean;
 var
-  sMp3:string;
+  sMp3: string;
 begin
   statInfo.Panels[0].Text := (sSetMusic.FileName);
 
   BASS_StreamFree(hs);
 
   sMp3 := sSetMusic.PathName + sSetMusic.FileName;
-  hs := BASS_StreamCreateFile(False, PChar(sMp3), 0, 0, 0 {$IFDEF UNICODE}    or BASS_UNICODE {$ENDIF});
+  hs := BASS_StreamCreateFile(False, PChar(sMp3), 0, 0, 0 {$IFDEF UNICODE}     or BASS_UNICODE {$ENDIF});
 
   if hs < BASS_ERROR_ENDED then
     statInfo.Panels[0].Text := '打开失败'
@@ -200,11 +197,21 @@ end;
 
 function TPlayMp3Music.loadSpceMusic: Boolean;
 var
-  I: Integer;
+  I,iT1,iT2: Integer;
+  T1, T2: TDateTime;
 begin
+  T2 := Time;
   for I := 0 to Length(SpecMusArring) - 1 do
   begin
-    ; //判断时间
+    T1  := StrToTime(SpecMusArring[I].PlayTime);
+    iT1 := MinuteOf(T1);
+    iT2 := MinuteOf(T2);
+    SecondsBetween(T1,T2)
+    if ((iT1 - iT2) < 1) and (CurMusicRec.FileName <> SpecMusArring[I].FileName) then
+    begin
+      LoadSetMusic(SpecMusArring[i]);
+      exit;
+    end; //判断时间；
   end;
 end;
 

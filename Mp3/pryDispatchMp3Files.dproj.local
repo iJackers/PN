@@ -2,18 +2,11 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>1899/12/30 00:00:00.000.582,D:\用户目录\我的文档\Embarcadero\Studio\Projects\pryDispatchMp3Files.dproj=D:\用户目录\我的文档\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.495,=D:\DelphiSource\Projects\Unit2.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.280,D:\Music\Projects\CommonTypes.pas=</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.135,=D:\Music\Projects\spectrum_vis.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.621,D:\用户目录\我的文档\Embarcadero\Studio\Projects\DispatchMp3File.pas=D:\用户目录\我的文档\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.086,=D:\DelphiSource\Projects\bass.pas</Transaction>
     <Transaction>1899/12/30 00:00:00.000.621,D:\用户目录\我的文档\Embarcadero\Studio\Projects\DispatchMp3File.dfm=D:\用户目录\我的文档\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.845,=D:\DelphiSource\Projects\Unit1.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.873,D:\DelphiSource\Projects\Unit1.pas=D:\DelphiSource\Projects\UntConst.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.459,D:\DelphiSource\Projects\PlayMp3File.pas=D:\DelphiSource\Projects\Unit2.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.208,=D:\用户目录\我的文档\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899/12/30 00:00:00.000.589,=D:\Music\Projects\CommonTypes.pas</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.621,D:\用户目录\我的文档\Embarcadero\Studio\Projects\DispatchMp3File.pas=D:\用户目录\我的文档\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>1899/12/30 00:00:00.000.459,D:\DelphiSource\Projects\PlayMp3File.dfm=D:\DelphiSource\Projects\Unit2.dfm</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.459,D:\DelphiSource\Projects\PlayMp3File.pas=D:\DelphiSource\Projects\Unit2.pas</Transaction>
     <Transaction>1899/12/30 00:00:00.000.286,=D:\用户目录\我的文档\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.208,=D:\用户目录\我的文档\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>

@@ -3820,33 +3820,4 @@ object PlayMp3Music: TPlayMp3Music
     Left = 152
     Top = 16
   end
-  object conMusicList: TADOConnection
-    ConnectionString = 
-      'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=E:\DelphiSource\PN\' +
-      'trunk\Mp3\data\MusicList.mdb;Mode=ReadWrite;Persist Security Inf' +
-      'o=False;Jet OLEDB:Database Password=parkson;'
-    LoginPrompt = False
-    Mode = cmReadWrite
-    Provider = 'Microsoft.Jet.OLEDB.4.0'
-    Left = 224
-    Top = 57
-  end
-  object qrySpecMusic: TADOQuery
-    Connection = conMusicList
-    CursorType = ctStatic
-    Parameters = <>
-    SQL.Strings = (
-      'select * from SpecMusicList')
-    Left = 296
-    Top = 65
-  end
-  object qryNormMusic: TADOQuery
-    Connection = conMusicList
-    CursorType = ctStatic
-    Parameters = <>
-    SQL.Strings = (
-      'select * from NormMusicList')
-    Left = 368
-    Top = 65
-  end
 end
