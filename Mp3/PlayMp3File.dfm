@@ -47,7 +47,7 @@ object PlayMp3Music: TPlayMp3Music
     Align = alBottom
     BevelKind = bkFlat
     BevelOuter = bvNone
-    TabOrder = 2
+    TabOrder = 3
     object btnPlayMusic: TBitBtn
       Left = 10
       Top = 2
@@ -101,7 +101,7 @@ object PlayMp3Music: TPlayMp3Music
     Align = alTop
     BevelKind = bkFlat
     BevelOuter = bvLowered
-    TabOrder = 1
+    TabOrder = 2
     object lblVolume: TLabel
       Left = 74
       Top = 43
@@ -145,7 +145,7 @@ object PlayMp3Music: TPlayMp3Music
     Width = 501
     Height = 120
     Align = alTop
-    TabOrder = 4
+    TabOrder = 1
     object pbPaintFrame: TPaintBox
       Left = 1
       Top = 1

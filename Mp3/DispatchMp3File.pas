@@ -260,6 +260,7 @@ begin
     while not Eof(FlnmTxt) do
     begin
       Readln(FlnmTxt, sLines);
+      if sLines = '' then  Break;
       doLvAddMusicLst(i.ToString + sLines, isPws);
       Inc(i);
     end;

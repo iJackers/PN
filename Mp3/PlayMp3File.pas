@@ -188,7 +188,7 @@ begin
   begin
     curMusicTime := BASS_ChannelBytes2Seconds(hs, BASS_ChannelGetLength(hs, BASS_POS_BYTE)); {总秒数}
     scrlbrPos.Max := Trunc(curMusicTime * 1000);
-    Mp3Lstfrm.lvSpecLst.Items.Item[0].SubItems[2] := Trunc(curMusicTime).ToString;
+    //Mp3Lstfrm.lvSpecLst.Items.Item[0].SubItems[2] := Trunc(curMusicTime).ToString;
     //保存音乐时间
     scrlbrPos.Enabled := True;
   end;
@@ -200,16 +200,26 @@ var
   I,iT1,iT2: Integer;
   T1, T2: TDateTime;
 begin
+  Result := false;
   T2 := Time;
   for I := 0 to Length(SpecMusArring) - 1 do
   begin
     T1  := StrToTime(SpecMusArring[I].PlayTime);
+    if T2 < T1 then Break;
+
+    iT1 := HourOf(T1);
+    iT2 := HourOf(T2);
+    if iT1 <> iT2  then  Break;
+
     iT1 := MinuteOf(T1);
     iT2 := MinuteOf(T2);
-    SecondsBetween(T1,T2)
-    if ((iT1 - iT2) < 1) and (CurMusicRec.FileName <> SpecMusArring[I].FileName) then
+    if iT2 < iT1 then Break;
+
+    if ((iT2 - iT1) < 1) and (CurMusicRec.FileName <> SpecMusArring[i].FileName) then
     begin
+      CurMusicRec := SpecMusArring[i];
       LoadSetMusic(SpecMusArring[i]);
+      Result := true;
       exit;
     end; //判断时间；
   end;
