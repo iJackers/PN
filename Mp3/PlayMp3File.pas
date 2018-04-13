@@ -302,7 +302,7 @@ procedure TPlayMp3Music.tmrMusLstTimer(Sender: TObject);
 var
   StatStr: string;
 begin
-   label1.Caption := '['+CurMusicRec.FileName+']-[' + timetostr(now)+']' ;
+   label1.Caption := '['+CurMusicRec.FileName+#10#13+ timetostr(now)+']' ;
       //判断有没有需要立即播放的音乐，
       //有就立即停止当前的播放（SPECMUSICLST）
 

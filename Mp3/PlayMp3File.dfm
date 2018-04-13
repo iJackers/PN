@@ -61,15 +61,16 @@ object PlayMp3Music: TPlayMp3Music
       ExplicitTop = 179
       ExplicitWidth = 488
       object Label1: TLabel
-        Left = 328
-        Top = 5
-        Width = 162
-        Height = 19
+        Left = 279
+        Top = 4
+        Width = 225
+        Height = 21
+        Alignment = taCenter
         AutoSize = False
         Caption = '00:00:00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlue
-        Font.Height = -15
+        Font.Height = -12
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
