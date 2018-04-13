@@ -30,6 +30,7 @@ type
     imgbk: TImage;
     Label1: TLabel;
     BitBtn1: TBitBtn;
+    pnl1: TPanel;
     procedure FormCreate(Sender: TObject);
     procedure btnPlayMusicClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -52,7 +53,6 @@ type
     procedure dispCurAndMusicTime(curtime, curalltime: Double);
     procedure setSpectrum;
     procedure AlignFormAgain;
-    function CheckMustPlayImm: Boolean;
     function GetNextMusic: TMusicFileRec;
     function LoadSetMusic(sSetMusic: TMusicFileRec): Boolean;
     function loadSpceMusic: Boolean;
@@ -75,7 +75,7 @@ begin
     exit;
   if Mp3Lstfrm.Visible = False then
     Mp3Lstfrm.Show;
-  Mp3Lstfrm.Left := Self.Left + self.Width + 10;
+  Mp3Lstfrm.Left := Self.Left + self.Width + 20;
   Mp3Lstfrm.Top := self.Top;
   Mp3Lstfrm.AlphaBlendValue := Self.AlphaBlendValue;
   Mp3Lstfrm.Height := Self.Height;
@@ -122,13 +122,8 @@ end;
 procedure TPlayMp3Music.btnStopClick(Sender: TObject);
 begin
   BASS_ChannelStop(hs);
-  tmrProgress.Enabled := false;
-  tmrMusLst.Enabled := False;
-end;
-
-function TPlayMp3Music.CheckMustPlayImm: Boolean;
-begin
-  result := true;
+//  tmrProgress.Enabled := false;
+//  tmrMusLst.Enabled := False;
 end;
 
 procedure TPlayMp3Music.dispCurAndMusicTime(curtime, curalltime: Double);
@@ -329,7 +324,7 @@ begin
 
   if (Time >StrToTime('00:00:00')) and (time < StrToTime('10:00:00'))   then
     begin
-      label1.Caption := '静音时间！';
+      statInfo.Panels[2].Text := '静音时间！只播指定音乐！';
       exit;
     end;
 

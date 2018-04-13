@@ -15,6 +15,7 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
+  TStyleManager.TrySetStyle('Sky');
   Application.Title := '南昌百盛优客MP3定时播放器';
   Application.CreateForm(TPlayMp3Music, PlayMp3Music);
   Application.Run;
