@@ -1,12 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899-12-30 00:00:00.000.459,D:\DelphiSource\Projects\Unit2.dfm=D:\DelphiSource\Projects\PlayMp3File.dfm</Transaction>
     <Transaction>1899-12-30 00:00:00.000.582,D:\用户目录\我的文档\Embarcadero\Studio\Projects\Project1.dproj=D:\用户目录\我的文档\Embarcadero\Studio\Projects\pryDispatchMp3Files.dproj</Transaction>
     <Transaction>1899-12-30 00:00:00.000.621,D:\用户目录\我的文档\Embarcadero\Studio\Projects\Unit1.dfm=D:\用户目录\我的文档\Embarcadero\Studio\Projects\DispatchMp3File.dfm</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.208,=D:\用户目录\我的文档\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.459,D:\DelphiSource\Projects\Unit2.dfm=D:\DelphiSource\Projects\PlayMp3File.dfm</Transaction>
     <Transaction>1899-12-30 00:00:00.000.459,D:\DelphiSource\Projects\Unit2.pas=D:\DelphiSource\Projects\PlayMp3File.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.621,D:\用户目录\我的文档\Embarcadero\Studio\Projects\Unit1.pas=D:\用户目录\我的文档\Embarcadero\Studio\Projects\DispatchMp3File.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.286,=D:\用户目录\我的文档\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>

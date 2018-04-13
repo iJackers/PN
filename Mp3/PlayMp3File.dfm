@@ -7,7 +7,7 @@ object PlayMp3Music: TPlayMp3Music
   BorderStyle = bsSingle
   Caption = #25773#25918#38899#20048
   ClientHeight = 281
-  ClientWidth = 501
+  ClientWidth = 510
   Color = clBtnFace
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
@@ -23,7 +23,7 @@ object PlayMp3Music: TPlayMp3Music
   object statInfo: TStatusBar
     Left = 0
     Top = 262
-    Width = 501
+    Width = 510
     Height = 19
     Panels = <
       item
@@ -42,12 +42,26 @@ object PlayMp3Music: TPlayMp3Music
   object pnlBtn: TPanel
     Left = 0
     Top = 230
-    Width = 501
+    Width = 510
     Height = 32
     Align = alBottom
     BevelKind = bkFlat
     BevelOuter = bvNone
     TabOrder = 3
+    object Label1: TLabel
+      Left = 328
+      Top = 5
+      Width = 162
+      Height = 19
+      AutoSize = False
+      Caption = '00:00:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
     object btnPlayMusic: TBitBtn
       Left = 10
       Top = 2
@@ -75,11 +89,26 @@ object PlayMp3Music: TPlayMp3Music
       TabOrder = 2
       OnClick = btnStopClick
     end
+    object BitBtn1: TBitBtn
+      Left = 202
+      Top = 2
+      Width = 71
+      Height = 25
+      Caption = #25105#30340#20013#22269#24515
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 3
+      OnClick = BitBtn1Click
+    end
   end
   object pnlTitle: TPanel
     Left = 0
     Top = 0
-    Width = 501
+    Width = 510
     Height = 41
     Align = alTop
     BevelKind = bkFlat
@@ -96,7 +125,7 @@ object PlayMp3Music: TPlayMp3Music
   object pnlBody: TPanel
     Left = 0
     Top = 161
-    Width = 501
+    Width = 510
     Height = 67
     Align = alTop
     BevelKind = bkFlat
@@ -142,14 +171,14 @@ object PlayMp3Music: TPlayMp3Music
   object pnlpbframe: TPanel
     Left = 0
     Top = 41
-    Width = 501
+    Width = 510
     Height = 120
     Align = alTop
     TabOrder = 1
     object pbPaintFrame: TPaintBox
       Left = 1
       Top = 1
-      Width = 499
+      Width = 508
       Height = 103
       Align = alClient
       ExplicitLeft = 10
@@ -160,7 +189,7 @@ object PlayMp3Music: TPlayMp3Music
     object imgbk: TImage
       Left = 1
       Top = 1
-      Width = 499
+      Width = 508
       Height = 103
       Align = alClient
       Picture.Data = {
@@ -3794,7 +3823,7 @@ object PlayMp3Music: TPlayMp3Music
     object scrlbrPos: TScrollBar
       Left = 1
       Top = 104
-      Width = 499
+      Width = 508
       Height = 15
       Align = alBottom
       PageSize = 0

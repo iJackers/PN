@@ -28,6 +28,8 @@ type
     pbPaintFrame: TPaintBox;
     scrlbrPos: TScrollBar;
     imgbk: TImage;
+    Label1: TLabel;
+    BitBtn1: TBitBtn;
     procedure FormCreate(Sender: TObject);
     procedure btnPlayMusicClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -39,11 +41,13 @@ type
     procedure trckbrAttXwChange(Sender: TObject);
     procedure TimerRenderTimer(Sender: TObject);
     procedure tmrMusLstTimer(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
   private
     { Private declarations }
     CurMusicRec: TMusicFileRec;
     curPlayTime, curMusicTime: double;
     PlayingNotStop: boolean;
+    heartOfChinaPlay :Boolean;
     procedure WMMove(var Message: TMessage); message WM_MOVE;
     procedure dispCurAndMusicTime(curtime, curalltime: Double);
     procedure setSpectrum;
@@ -71,10 +75,31 @@ begin
     exit;
   if Mp3Lstfrm.Visible = False then
     Mp3Lstfrm.Show;
-  Mp3Lstfrm.Left := Self.Left + Width;
+  Mp3Lstfrm.Left := Self.Left + self.Width + 10;
   Mp3Lstfrm.Top := self.Top;
   Mp3Lstfrm.AlphaBlendValue := Self.AlphaBlendValue;
   Mp3Lstfrm.Height := Self.Height;
+end;
+
+procedure TPlayMp3Music.BitBtn1Click(Sender: TObject);
+begin
+  tmrMusLst.Enabled := False;
+  with CurMusicRec do
+   begin
+     iSecNo := 0;
+     PathName := 'D:\Music\SpecMusic\';
+     FileName := 'HeartOfChina.mp3';
+     PlayTime := '00:00:00';
+     MusicLen := 0;
+     PlayTimes := 1;
+     IsPlay := true;
+     PlayVol := 70;
+     PLaylfRi := 0;
+     playing := true;
+   end;
+  heartOfChinaPlay := true;
+  btnStopClick(nil);
+  tmrMusLst.Enabled := true;
 end;
 
 procedure TPlayMp3Music.btnPauseClick(Sender: TObject);
@@ -109,10 +134,13 @@ end;
 procedure TPlayMp3Music.dispCurAndMusicTime(curtime, curalltime: Double);
 var
   sCurTime, sCurAllTime, sCurLstTime: string;
+  sCurTime60, sCurAllTime60: string;
 begin
   sCurTime := FormatFloat('0.00', curtime);
   sCurAllTime := FormatFloat('0.00', curalltime);
-  sCurLstTime := Concat(sCurAllTime, '/', sCurTime);
+  sCurTime60 := FormatFloat('0.00', curtime/60);
+  sCurAllTime60 := FormatFloat('0.00', curalltime/60);
+  sCurLstTime := Concat('[',sCurAllTime, '/', sCurTime,']','--','[',sCurAllTime60, '/', sCurTime60,']');
   statInfo.Panels[3].Text := sCurLstTime;
 end;
 
@@ -133,6 +161,7 @@ begin
   AlignFormAgain;
 
   PlayingNotStop := false;
+  heartOfChinaPlay := false;
 end;
 
 procedure TPlayMp3Music.FormDestroy(Sender: TObject);
@@ -150,7 +179,9 @@ var
 begin
   j := Length(NorMusArring);
   if j = 0 then
-    Exit;
+    begin
+      Exit;
+    end;
 
   for i := 0 to j - 1 do
   begin
@@ -159,7 +190,8 @@ begin
       NorMusArring[i].playing := False;
       NorMusArring[i + 1].playing := true;
       Result := NorMusArring[i + 1];
-      exit
+      CurMusicRec := Result;
+      exit;
     end;
   end;
 
@@ -168,6 +200,7 @@ begin
     NorMusArring[j - 1].playing := False;
     NorMusArring[0].playing := true;
     Result := NorMusArring[0];
+    CurMusicRec := Result;
   end;
 end;
 
@@ -180,10 +213,10 @@ begin
   BASS_StreamFree(hs);
 
   sMp3 := sSetMusic.PathName + sSetMusic.FileName;
-  hs := BASS_StreamCreateFile(False, PChar(sMp3), 0, 0, 0 {$IFDEF UNICODE}     or BASS_UNICODE {$ENDIF});
+  hs := BASS_StreamCreateFile(False, PChar(sMp3), 0, 0, 0 {$IFDEF UNICODE} or BASS_UNICODE {$ENDIF});
 
   if hs < BASS_ERROR_ENDED then
-    statInfo.Panels[0].Text := '打开失败'
+    statInfo.Panels[0].Text := '打开失败B'
   else
   begin
     curMusicTime := BASS_ChannelBytes2Seconds(hs, BASS_ChannelGetLength(hs, BASS_POS_BYTE)); {总秒数}
@@ -197,25 +230,33 @@ end;
 
 function TPlayMp3Music.loadSpceMusic: Boolean;
 var
-  I,iT1,iT2: Integer;
-  T1, T2: TDateTime;
+  I,iT1,iT2,iT3,iT4,iT5,iT6: Integer;
+  Tnow, TPlay: TDateTime;
 begin
   Result := false;
-  T2 := Time;
-  for I := 0 to Length(SpecMusArring) - 1 do
+  TNow := Time;
+  for i := 0 to Length(SpecMusArring) - 1 do
   begin
-    T1  := StrToTime(SpecMusArring[I].PlayTime);
-    if T2 < T1 then Break;
+    Tplay  := StrToTime(SpecMusArring[i].PlayTime);
 
-    iT1 := HourOf(T1);
-    iT2 := HourOf(T2);
-    if iT1 <> iT2  then  Break;
+    iT1 := HourOf(TNow);
+    iT2 := HourOf(TPlay);
 
-    iT1 := MinuteOf(T1);
-    iT2 := MinuteOf(T2);
-    if iT2 < iT1 then Break;
+    iT3 := MinuteOf(TNow);
+    iT4 := MinuteOf(TPlay);
 
-    if ((iT2 - iT1) < 1) and (CurMusicRec.FileName <> SpecMusArring[i].FileName) then
+    iT5 := SecondOf(TNow);
+    iT6 := SecondOf(TPlay);
+
+    //label2.Caption := iT1.ToString + ':' +iT3.ToString +':' + iT5.ToString;
+    //label3.caption := iT2.ToString + ':' +iT4.ToString +':' + iT6.ToString;
+
+    if iT1 <> iT2 then continue;
+    if iT4 <> iT3 then continue;
+    if iT5 <  iT6 then continue;
+
+
+    if ((iT5 - iT6) < 10) and (CurMusicRec.FileName <> SpecMusArring[i].FileName) then
     begin
       CurMusicRec := SpecMusArring[i];
       LoadSetMusic(SpecMusArring[i]);
@@ -266,19 +307,32 @@ procedure TPlayMp3Music.tmrMusLstTimer(Sender: TObject);
 var
   StatStr: string;
 begin
-  begin
+   label1.Caption := '['+CurMusicRec.FileName+']-[' + timetostr(now)+']' ;
       //判断有没有需要立即播放的音乐，
       //有就立即停止当前的播放（SPECMUSICLST）
+
+   if heartOfChinaPlay then
+     begin
+       if LoadSetMusic(CurMusicRec) then
+          btnPlayMusicClick(nil);
+       HeartOfChinaPlay := False;
+       exit;
+     end;
+
+
     if loadSpceMusic then
     begin
       btnPlayMusicClick(nil);
     end;
-
-
       //没有的就顺序往下播放(NORMUSICLST)
       //判断前面一首是否已经播放完毕   PlayOrPause = true  and Bass_active_Stopped
-      //
-  end;
+
+  if (Time >StrToTime('00:00:00')) and (time < StrToTime('10:00:00'))   then
+    begin
+      label1.Caption := '静音时间！';
+      exit;
+    end;
+
 
   if hs = 0 then
   begin

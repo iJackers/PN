@@ -6,7 +6,7 @@ object Mp3Lstfrm: TMp3Lstfrm
   BorderStyle = bsDialog
   Caption = #21046#20316#25773#25918#21015#34920#25991#20214
   ClientHeight = 500
-  ClientWidth = 515
+  ClientWidth = 522
   Color = clBtnFace
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
@@ -22,9 +22,9 @@ object Mp3Lstfrm: TMp3Lstfrm
   object pgcMp3File: TPageControl
     Left = 0
     Top = 0
-    Width = 515
+    Width = 522
     Height = 452
-    ActivePage = tsSpecLst
+    ActivePage = tsNorLst
     Align = alClient
     DoubleBuffered = True
     HotTrack = True
@@ -33,12 +33,14 @@ object Mp3Lstfrm: TMp3Lstfrm
     ShowHint = True
     Style = tsFlatButtons
     TabOrder = 0
+    ExplicitWidth = 515
     object tsSpecLst: TTabSheet
       Caption = #23450#26102#25773#25918#21015#34920
+      ExplicitWidth = 507
       object lvSpecLst: TListView
         Left = 0
         Top = 0
-        Width = 507
+        Width = 514
         Height = 421
         Align = alClient
         Columns = <
@@ -67,19 +69,17 @@ object Mp3Lstfrm: TMp3Lstfrm
         RowSelect = True
         TabOrder = 0
         ViewStyle = vsReport
+        ExplicitWidth = 507
       end
     end
     object tsNorLst: TTabSheet
       Caption = #38543#26426#38899#20048#21015#34920
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitWidth = 507
       object lvNorLst: TListView
         Left = 0
         Top = 0
-        Width = 507
+        Width = 514
         Height = 421
         Align = alClient
         Columns = <
@@ -105,13 +105,14 @@ object Mp3Lstfrm: TMp3Lstfrm
         RowSelect = True
         TabOrder = 0
         ViewStyle = vsReport
+        ExplicitWidth = 507
       end
     end
   end
   object pnlBtn: TPanel
     Left = 0
     Top = 452
-    Width = 515
+    Width = 522
     Height = 48
     Align = alBottom
     BevelInner = bvSpace
@@ -120,6 +121,7 @@ object Mp3Lstfrm: TMp3Lstfrm
     DoubleBuffered = False
     ParentDoubleBuffered = False
     TabOrder = 1
+    ExplicitWidth = 515
     object btnOpenMusLst: TBitBtn
       Left = 2
       Top = 4
@@ -136,6 +138,7 @@ object Mp3Lstfrm: TMp3Lstfrm
       Height = 37
       Caption = #28155#21152#25991#20214#22841'(&F)'
       TabOrder = 1
+      Visible = False
     end
     object btnAddMus: TBitBtn
       Left = 170
@@ -144,6 +147,7 @@ object Mp3Lstfrm: TMp3Lstfrm
       Height = 37
       Caption = #28155#21152#25991#20214'(&M)'
       TabOrder = 2
+      Visible = False
     end
     object btnDeleteMus: TBitBtn
       Left = 255
@@ -152,6 +156,7 @@ object Mp3Lstfrm: TMp3Lstfrm
       Height = 37
       Caption = #21024#38500#25991#20214'(&D)'
       TabOrder = 3
+      Visible = False
     end
     object btnClearMusLst: TBitBtn
       Left = 339
@@ -160,6 +165,7 @@ object Mp3Lstfrm: TMp3Lstfrm
       Height = 37
       Caption = #28165#31354#21015#34920'(&C)'
       TabOrder = 4
+      Visible = False
       OnClick = btnClearMusLstClick
     end
     object btnSaveMusLst: TBitBtn
@@ -169,6 +175,7 @@ object Mp3Lstfrm: TMp3Lstfrm
       Height = 37
       Caption = #20445#23384#21015#34920'(&S)'
       TabOrder = 5
+      Visible = False
       OnClick = btnSaveMusLstClick
     end
   end

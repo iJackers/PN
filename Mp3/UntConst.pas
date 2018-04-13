@@ -48,12 +48,12 @@ begin
     pMusicRec.FileName := ExtractFileName(strs[2]);
     pMusicRec.PathName := ExtractFilePath(strs[2]);
     pMusicRec.MusicLen := strs[3].ToInteger;
-    pMusicRec.IsPlay   := False;
-    pMusicRec.PlayTimes:=1;
-    pMusicRec.SingleLoop:= False;
-    pMusicRec.PlayVol  := 50;
-    pMusicRec.PLaylfRi := 0;
-    pMusicRec.playing  := False;
+    pMusicRec.IsPlay   := strs[4].toboolean;
+    pMusicRec.PlayTimes:=strs[5].ToInteger;
+    pMusicRec.SingleLoop:= strs[6].ToBoolean;
+    pMusicRec.PlayVol  := strs[7].ToInteger;
+    pMusicRec.PLaylfRi := strs[8].ToInteger;
+    pMusicRec.playing  := strs[9].ToBoolean;
   end
   else
   begin
@@ -61,12 +61,12 @@ begin
     pMusicRec.FileName := ExtractFileName(strs[1]);
     pMusicRec.PathName := ExtractFilePath(strs[1]);
     pMusicRec.MusicLen := strs[2].ToInteger;
-    pMusicRec.IsPlay   := False;
-    pMusicRec.PlayTimes:=1;
-    pMusicRec.SingleLoop:= False;
-    pMusicRec.PlayVol  := 50;
-    pMusicRec.PLaylfRi := 0;
-    pMusicRec.playing  := False;
+    pMusicRec.IsPlay   := strs[3].toboolean;
+    pMusicRec.PlayTimes:=strs[4].ToInteger;
+    pMusicRec.SingleLoop:= strs[5].ToBoolean;
+    pMusicRec.PlayVol  := strs[6].ToInteger;
+    pMusicRec.PLaylfRi := strs[7].ToInteger;
+    pMusicRec.playing  := strs[8].ToBoolean;
   end;
   strs.Free;
 end;
