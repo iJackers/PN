@@ -45,6 +45,7 @@ type
     function doLvAddMusicLst(sMusicInfo: string; IsPws: Boolean): boolean;
     procedure SaveToPws(sMusic: TStringList; sFileName: string);
     procedure LoadMusLstFile(sFileName: string; isPws: Boolean);
+    procedure ArrayTpSetLstView(bPws:Boolean);
   public
     { Public declarations }
   end;
@@ -93,10 +94,14 @@ begin
     IsPws := false;
   end;
 
-  if DirectoryExists('D:\Music') then
-    dlgOpenLst.InitialDir := 'D:\Music'
-  else
-    dlgOpenLst.InitialDir := ExtractFilePath(ParamStr(0));
+  if Not DirectoryExists('D:\Music') then
+    begin
+      CreateDir('D:\Music');
+      CreateDir('D:\SpecMusic');
+      CreateDir('D:\NormalMusic');
+    end;
+  dlgOpenLst.InitialDir := 'D:\Music';
+
 
   dlgOpenLst.FileName := '';
   if dlgOpenLst.Execute then
@@ -105,7 +110,6 @@ begin
     if FileExists(FlnmLst) then
     begin
       LoadMusLstFile(FlnmLst, IsPws);
-      //LoadMusicArr(lvSpecLst);
     end;
   end;
 end;
@@ -167,6 +171,7 @@ begin
   end;
 end;
 
+
 procedure TMp3Lstfrm.btnClearMusLstClick(Sender: TObject);
 begin
   actClearFileListExecute(Sender);
@@ -192,13 +197,7 @@ begin
       StrToMusRec(sMusicInfo, MusicRec, '#', IsPws);
       if IsPws then
       begin
-        musicItem := lvSpecLst.Items.Add;
-        musicItem.Caption := IntToStr(MusicRec.iSecNo);
-        musicItem.SubItems.Add(MusicRec.PlayTime);
-        musicItem.SubItems.Add(MusicRec.PathName + MusicRec.FileName);
         Result := fileExists(MusicRec.PathName + MusicRec.FileName);
-        musicItem.SubItems.Add(MusicRec.MusicLen.ToString);
-        musicItem.SubItems.Add(BoolToStr(Result, true));
         if Result then
           begin
             SetLength(SpecMusArr, Length(SpecMusArr) + 1);
@@ -207,12 +206,7 @@ begin
       end
       else
       begin
-        musicItem := lvNorLst.Items.Add;
-        musicItem.Caption := IntToStr(MusicRec.iSecNo);
         Result := fileExists(MusicRec.PathName + MusicRec.FileName);
-        musicItem.SubItems.Add(MusicRec.PathName + MusicRec.FileName);
-        musicItem.SubItems.Add(MusicRec.MusicLen.ToString);
-        musicItem.SubItems.Add(BoolToStr(Result, True));
         if Result then
           begin
             SetLength(NorMusArr, Length(NorMusArr) + 1);
@@ -251,11 +245,6 @@ begin
       Exit;
     end;
 
-    if isPws then
-      lvSpecLst.Items.Clear
-    else
-      lvNorLst.Items.Clear;
-
     i := 1;
     while not Eof(FlnmTxt) do
     begin
@@ -267,6 +256,51 @@ begin
     CloseFile(FlnmTxt);
   end;
   SetMusicArray;
+
+  ArrayTpSetLstView(isPws);
+end;
+
+procedure TMp3Lstfrm.ArrayTpSetLstView(bPws: Boolean);
+var
+  i:integer;
+  musicItem: TListItem;
+  iResult:Boolean;
+begin
+  if bPws then
+    begin
+      with lvSpecLst do
+      begin
+        Items.Clear;
+        for i := 0 to Length(SpecMusArring) - 1  do
+          begin
+            musicItem := lvSpecLst.Items.Add;
+            musicItem.Caption := IntToStr(SpecMusArring[i].iSecNo);
+            musicItem.SubItems.Add(SpecMusArring[i].PlayTime);
+            musicItem.SubItems.Add(SpecMusArring[i].PathName + SpecMusArring[i].FileName);
+            iResult := fileExists(SpecMusArring[i].PathName + SpecMusArring[i].FileName);
+            musicItem.SubItems.Add(SpecMusArring[i].MusicLen.ToString);
+            musicItem.SubItems.Add(BoolToStr(iResult, true));
+            musicItem.SubItems.Add(SpecMusArring[i].PlayVol.ToString);
+          end;
+      end;
+    end
+  else
+    begin
+      with lvNorLst do
+      begin
+        lvNorLst.Items.Clear;
+        for i := 0 to Length(NorMusArring) - 1  do
+        begin
+          musicItem := lvNorLst.Items.Add;
+          musicItem.Caption := IntToStr(NorMusArring[i].iSecNo);
+          iResult := fileExists(NorMusArring[i].PathName + NorMusArring[i].FileName);
+          musicItem.SubItems.Add(NorMusArring[i].PathName + NorMusArring[i].FileName);
+          musicItem.SubItems.Add(NorMusArring[i].MusicLen.ToString);
+          musicItem.SubItems.Add(BoolToStr(iResult, True));
+          musicItem.SubItems.Add(NorMusArring[i].PlayVol.ToString);
+        end;
+      end;
+    end;
 end;
 
 procedure TMp3Lstfrm.SaveToPws(sMusic: TStringlist; sFileName: string);

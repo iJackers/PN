@@ -115,6 +115,7 @@ begin
   BASS_ChannelPlay(hs, False);
   tmrProgress.Enabled := true;
   tmrMusLst.Enabled := true;
+  trckbrVolume.Position := CurMusicRec.PlayVol;
   trckbrVolumeChange(nil);
   trckbrAttXwChange(nil);
 end;
@@ -302,7 +303,8 @@ procedure TPlayMp3Music.tmrMusLstTimer(Sender: TObject);
 var
   StatStr: string;
 begin
-   label1.Caption := '['+CurMusicRec.FileName+#10#13+ timetostr(now)+']' ;
+   label1.Caption := '[播放：'+CurMusicRec.FileName+ ']'+#10#13
+                    + '[当前时间：'+ timetostr(now)+']' ;
       //判断有没有需要立即播放的音乐，
       //有就立即停止当前的播放（SPECMUSICLST）
 

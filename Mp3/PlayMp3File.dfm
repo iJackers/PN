@@ -45,27 +45,21 @@ object PlayMp3Music: TPlayMp3Music
     Height = 223
     Align = alClient
     TabOrder = 1
-    ExplicitLeft = 12
-    ExplicitTop = 207
-    ExplicitWidth = 490
-    ExplicitHeight = 218
     object pnlBtn: TPanel
       Left = 1
-      Top = 190
+      Top = 180
       Width = 508
-      Height = 32
+      Height = 42
       Align = alBottom
       BevelKind = bkFlat
       BevelOuter = bvNone
       TabOrder = 2
       ExplicitTop = 179
-      ExplicitWidth = 488
       object Label1: TLabel
-        Left = 279
+        Left = 336
         Top = 4
-        Width = 225
-        Height = 21
-        Alignment = taCenter
+        Width = 129
+        Height = 31
         AutoSize = False
         Caption = '00:00:00'
         Font.Charset = DEFAULT_CHARSET
@@ -79,7 +73,7 @@ object PlayMp3Music: TPlayMp3Music
         Left = 10
         Top = 2
         Width = 58
-        Height = 25
+        Height = 33
         Caption = #25773#25918
         TabOrder = 0
         OnClick = btnPlayMusicClick
@@ -88,7 +82,7 @@ object PlayMp3Music: TPlayMp3Music
         Left = 74
         Top = 2
         Width = 58
-        Height = 25
+        Height = 33
         Caption = #26242#20572
         TabOrder = 1
         OnClick = btnPauseClick
@@ -97,7 +91,7 @@ object PlayMp3Music: TPlayMp3Music
         Left = 138
         Top = 2
         Width = 58
-        Height = 25
+        Height = 33
         Caption = #19979#19968#39318
         TabOrder = 2
         OnClick = btnStopClick
@@ -106,7 +100,7 @@ object PlayMp3Music: TPlayMp3Music
         Left = 202
         Top = 2
         Width = 71
-        Height = 25
+        Height = 33
         Caption = #25105#30340#20013#22269#24515
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -120,16 +114,14 @@ object PlayMp3Music: TPlayMp3Music
     end
     object pnlBody: TPanel
       Left = 1
-      Top = 123
+      Top = 113
       Width = 508
       Height = 67
       Align = alBottom
       BevelKind = bkFlat
       BevelOuter = bvLowered
       TabOrder = 1
-      ExplicitLeft = 0
-      ExplicitTop = 478
-      ExplicitWidth = 510
+      ExplicitTop = 123
       object lblVolume: TLabel
         Left = 74
         Top = 43
@@ -174,8 +166,6 @@ object PlayMp3Music: TPlayMp3Music
       Height = 121
       Align = alTop
       TabOrder = 0
-      ExplicitTop = 0
-      ExplicitWidth = 488
       object pbPaintFrame: TPaintBox
         Left = 1
         Top = 1
@@ -3830,8 +3820,6 @@ object PlayMp3Music: TPlayMp3Music
         PageSize = 0
         TabOrder = 0
         OnScroll = scrlbrPosScroll
-        ExplicitTop = 104
-        ExplicitWidth = 508
       end
     end
   end
@@ -3853,9 +3841,6 @@ object PlayMp3Music: TPlayMp3Music
       item
         Width = 50
       end>
-    ExplicitLeft = 1
-    ExplicitTop = 176
-    ExplicitWidth = 488
   end
   object tmrProgress: TTimer
     Enabled = False

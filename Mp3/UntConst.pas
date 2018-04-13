@@ -82,6 +82,7 @@ begin
     begin
       SetLength(NorMusArring, j + 1);
       NorMusArring[j] := NorMusArr[i];
+      NorMusArring[j].iSecNo := j+1;
       Inc(j);
     end;
   end;
@@ -95,6 +96,7 @@ begin
     begin
       setLength(SpecMusArring, j + 1);
       SpecMusArring[j] := SpecMusArr[i];
+      SpecMusArring[j].iSecNo := j+1;
       Inc(j);
     end;
   end;

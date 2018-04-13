@@ -24,7 +24,7 @@ object Mp3Lstfrm: TMp3Lstfrm
     Top = 0
     Width = 522
     Height = 452
-    ActivePage = tsNorLst
+    ActivePage = tsSpecLst
     Align = alClient
     DoubleBuffered = True
     HotTrack = True
@@ -33,10 +33,8 @@ object Mp3Lstfrm: TMp3Lstfrm
     ShowHint = True
     Style = tsFlatButtons
     TabOrder = 0
-    ExplicitWidth = 515
     object tsSpecLst: TTabSheet
       Caption = #23450#26102#25773#25918#21015#34920
-      ExplicitWidth = 507
       object lvSpecLst: TListView
         Left = 0
         Top = 0
@@ -46,21 +44,31 @@ object Mp3Lstfrm: TMp3Lstfrm
         Columns = <
           item
             Caption = #24207#21495
+            Width = 40
           end
           item
+            Alignment = taCenter
             Caption = #26102#38388
-            Width = 80
+            Width = 60
           end
           item
+            Alignment = taCenter
             Caption = #27468#26354#21517
             Width = 210
           end
           item
+            Alignment = taCenter
             Caption = #26102#38388#38271#24230
-            Width = 110
+            Width = 60
           end
           item
+            Alignment = taCenter
             Caption = #23384#22312
+          end
+          item
+            Alignment = taCenter
+            Caption = #38899#37327
+            Width = 60
           end>
         GridLines = True
         HotTrack = True
@@ -69,13 +77,11 @@ object Mp3Lstfrm: TMp3Lstfrm
         RowSelect = True
         TabOrder = 0
         ViewStyle = vsReport
-        ExplicitWidth = 507
       end
     end
     object tsNorLst: TTabSheet
       Caption = #38543#26426#38899#20048#21015#34920
       ImageIndex = 1
-      ExplicitWidth = 507
       object lvNorLst: TListView
         Left = 0
         Top = 0
@@ -85,18 +91,26 @@ object Mp3Lstfrm: TMp3Lstfrm
         Columns = <
           item
             Caption = #24207#21495
+            Width = 40
+          end
+          item
+            Alignment = taCenter
+            Caption = #27468#26354#21517
+            Width = 210
+          end
+          item
+            Alignment = taCenter
+            Caption = #26102#38388#38271#24230
             Width = 60
           end
           item
-            Caption = #27468#26354#21517
-            Width = 270
-          end
-          item
-            Caption = #26102#38388#38271#24230
-            Width = 115
-          end
-          item
+            Alignment = taCenter
             Caption = #23384#22312
+          end
+          item
+            Alignment = taCenter
+            Caption = #38899#37327
+            Width = 60
           end>
         GridLines = True
         HotTrack = True
@@ -105,7 +119,6 @@ object Mp3Lstfrm: TMp3Lstfrm
         RowSelect = True
         TabOrder = 0
         ViewStyle = vsReport
-        ExplicitWidth = 507
       end
     end
   end
@@ -121,7 +134,6 @@ object Mp3Lstfrm: TMp3Lstfrm
     DoubleBuffered = False
     ParentDoubleBuffered = False
     TabOrder = 1
-    ExplicitWidth = 515
     object btnOpenMusLst: TBitBtn
       Left = 2
       Top = 4
