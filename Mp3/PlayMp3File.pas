@@ -116,6 +116,7 @@ begin
   tmrProgress.Enabled := true;
   tmrMusLst.Enabled := true;
   trckbrVolume.Position := CurMusicRec.PlayVol;
+  trckbrAttXw.Position  := CurMusicRec.PLaylfRi;
   trckbrVolumeChange(nil);
   trckbrAttXwChange(nil);
 end;

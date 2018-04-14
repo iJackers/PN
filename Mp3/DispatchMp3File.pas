@@ -281,6 +281,7 @@ begin
             musicItem.SubItems.Add(SpecMusArring[i].MusicLen.ToString);
             musicItem.SubItems.Add(BoolToStr(iResult, true));
             musicItem.SubItems.Add(SpecMusArring[i].PlayVol.ToString);
+            musicItem.SubItems.Add(SpecMusArring[i].PLaylfRi.ToString);
           end;
       end;
     end
@@ -298,6 +299,7 @@ begin
           musicItem.SubItems.Add(NorMusArring[i].MusicLen.ToString);
           musicItem.SubItems.Add(BoolToStr(iResult, True));
           musicItem.SubItems.Add(NorMusArring[i].PlayVol.ToString);
+          musicItem.SubItems.Add(NorMusArring[i].PLaylfRi.ToString);
         end;
       end;
     end;

@@ -54,7 +54,6 @@ object PlayMp3Music: TPlayMp3Music
       BevelKind = bkFlat
       BevelOuter = bvNone
       TabOrder = 2
-      ExplicitTop = 179
       object Label1: TLabel
         Left = 336
         Top = 4
@@ -121,7 +120,6 @@ object PlayMp3Music: TPlayMp3Music
       BevelKind = bkFlat
       BevelOuter = bvLowered
       TabOrder = 1
-      ExplicitTop = 123
       object lblVolume: TLabel
         Left = 74
         Top = 43

@@ -44,7 +44,7 @@ object Mp3Lstfrm: TMp3Lstfrm
         Columns = <
           item
             Caption = #24207#21495
-            Width = 40
+            Width = 38
           end
           item
             Alignment = taCenter
@@ -58,17 +58,21 @@ object Mp3Lstfrm: TMp3Lstfrm
           end
           item
             Alignment = taCenter
-            Caption = #26102#38388#38271#24230
-            Width = 60
+            Caption = #38271#24230
+            Width = 38
           end
           item
             Alignment = taCenter
             Caption = #23384#22312
+            Width = 38
           end
           item
             Alignment = taCenter
             Caption = #38899#37327
-            Width = 60
+            Width = 40
+          end
+          item
+            Caption = #24179#34913#38899
           end>
         GridLines = True
         HotTrack = True
@@ -96,21 +100,25 @@ object Mp3Lstfrm: TMp3Lstfrm
           item
             Alignment = taCenter
             Caption = #27468#26354#21517
-            Width = 210
+            Width = 260
           end
           item
             Alignment = taCenter
-            Caption = #26102#38388#38271#24230
-            Width = 60
+            Caption = #38271#24230
+            Width = 40
           end
           item
             Alignment = taCenter
             Caption = #23384#22312
+            Width = 40
           end
           item
             Alignment = taCenter
             Caption = #38899#37327
-            Width = 60
+            Width = 40
+          end
+          item
+            Caption = #24179#34913#38899
           end>
         GridLines = True
         HotTrack = True

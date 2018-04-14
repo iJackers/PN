@@ -6,15 +6,6 @@
         <Projects Include="pryDispatchMp3Files.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="ENG\pryDispatchMp3Files_ENG.bdsproj">
-            <Dependencies/>
-        </Projects>
-        <Projects Include="CHS\pryDispatchMp3Files_CHS.bdsproj">
-            <Dependencies/>
-        </Projects>
-        <Projects Include="KOR\pryDispatchMp3Files_KOR.bdsproj">
-            <Dependencies/>
-        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -32,41 +23,14 @@
     <Target Name="pryDispatchMp3Files:Make">
         <MSBuild Projects="pryDispatchMp3Files.dproj" Targets="Make"/>
     </Target>
-    <Target Name="pryDispatchMp3Files_ENG">
-        <MSBuild Projects="ENG\pryDispatchMp3Files_ENG.bdsproj"/>
-    </Target>
-    <Target Name="pryDispatchMp3Files_ENG:Clean">
-        <MSBuild Projects="ENG\pryDispatchMp3Files_ENG.bdsproj" Targets="Clean"/>
-    </Target>
-    <Target Name="pryDispatchMp3Files_ENG:Make">
-        <MSBuild Projects="ENG\pryDispatchMp3Files_ENG.bdsproj" Targets="Make"/>
-    </Target>
-    <Target Name="pryDispatchMp3Files_CHS">
-        <MSBuild Projects="CHS\pryDispatchMp3Files_CHS.bdsproj"/>
-    </Target>
-    <Target Name="pryDispatchMp3Files_CHS:Clean">
-        <MSBuild Projects="CHS\pryDispatchMp3Files_CHS.bdsproj" Targets="Clean"/>
-    </Target>
-    <Target Name="pryDispatchMp3Files_CHS:Make">
-        <MSBuild Projects="CHS\pryDispatchMp3Files_CHS.bdsproj" Targets="Make"/>
-    </Target>
-    <Target Name="pryDispatchMp3Files_KOR">
-        <MSBuild Projects="KOR\pryDispatchMp3Files_KOR.bdsproj"/>
-    </Target>
-    <Target Name="pryDispatchMp3Files_KOR:Clean">
-        <MSBuild Projects="KOR\pryDispatchMp3Files_KOR.bdsproj" Targets="Clean"/>
-    </Target>
-    <Target Name="pryDispatchMp3Files_KOR:Make">
-        <MSBuild Projects="KOR\pryDispatchMp3Files_KOR.bdsproj" Targets="Make"/>
-    </Target>
     <Target Name="Build">
-        <CallTarget Targets="pryDispatchMp3Files;pryDispatchMp3Files_ENG;pryDispatchMp3Files_CHS;pryDispatchMp3Files_KOR"/>
+        <CallTarget Targets="pryDispatchMp3Files"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="pryDispatchMp3Files:Clean;pryDispatchMp3Files_ENG:Clean;pryDispatchMp3Files_CHS:Clean;pryDispatchMp3Files_KOR:Clean"/>
+        <CallTarget Targets="pryDispatchMp3Files:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="pryDispatchMp3Files:Make;pryDispatchMp3Files_ENG:Make;pryDispatchMp3Files_CHS:Make;pryDispatchMp3Files_KOR:Make"/>
+        <CallTarget Targets="pryDispatchMp3Files:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
