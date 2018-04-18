@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, bass, Vcl.ComCtrls, Vcl.StdCtrls,
-  DispatchMp3File, Vcl.ExtCtrls, Vcl.Buttons, spectrum_vis, Vcl.Imaging.pngimage,
+   Vcl.ExtCtrls, Vcl.Buttons, spectrum_vis, Vcl.Imaging.pngimage, DispatchMp3File,
   System.DateUtils, UntConst;
 
 type
@@ -14,7 +14,7 @@ type
     pnlBtn: TPanel;
     btnPlayMusic: TBitBtn;
     btnPause: TBitBtn;
-    btnStop: TBitBtn;
+    btnNextMusic: TBitBtn;
     tmrProgress: TTimer;
     pnlTitle: TPanel;
     pnlBody: TPanel;
@@ -35,7 +35,7 @@ type
     procedure btnPlayMusicClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure btnPauseClick(Sender: TObject);
-    procedure btnStopClick(Sender: TObject);
+    procedure btnNextMusicClick(Sender: TObject);
     procedure tmrProgressTimer(Sender: TObject);
     procedure scrlbrPosScroll(Sender: TObject; ScrollCode: TScrollCode; var ScrollPos: Integer);
     procedure trckbrVolumeChange(Sender: TObject);
@@ -45,10 +45,8 @@ type
     procedure BitBtn1Click(Sender: TObject);
   private
     { Private declarations }
-    CurMusicRec: TMusicFileRec;
     curPlayTime, curMusicTime: double;
     PlayingNotStop: boolean;
-    heartOfChinaPlay :Boolean;
     procedure WMMove(var Message: TMessage); message WM_MOVE;
     procedure dispCurAndMusicTime(curtime, curalltime: Double);
     procedure setSpectrum;
@@ -57,6 +55,8 @@ type
     function LoadSetMusic(sSetMusic: TMusicFileRec): Boolean;
     function loadSpceMusic: Boolean;
   public
+    CurMusicRec: TMusicFileRec;
+    heartOfChinaPlay ,NormalLstDbClk :Boolean;
     { Public declarations }
   end;
 
@@ -64,6 +64,8 @@ var
   PlayMp3Music: TPlayMp3Music;
   Mp3Lstfrm: TMp3Lstfrm;
   hs: dword; {流句柄}
+
+
 
 implementation
 
@@ -98,7 +100,7 @@ begin
      playing := true;
    end;
   heartOfChinaPlay := true;
-  btnStopClick(nil);
+  btnNextMusicClick(nil);
   tmrMusLst.Enabled := true;
 end;
 
@@ -108,6 +110,7 @@ begin
   tmrMusLst.Enabled := False;
   BASS_ChannelPause(hs);
   PlayingNotStop := false;
+  ShutDownComputer;
 end;
 
 procedure TPlayMp3Music.btnPlayMusicClick(Sender: TObject);
@@ -121,7 +124,7 @@ begin
   trckbrAttXwChange(nil);
 end;
 
-procedure TPlayMp3Music.btnStopClick(Sender: TObject);
+procedure TPlayMp3Music.btnNextMusicClick(Sender: TObject);
 begin
   BASS_ChannelStop(hs);
 //  tmrProgress.Enabled := false;
@@ -143,6 +146,14 @@ end;
 
 procedure TPlayMp3Music.FormCreate(Sender: TObject);
 begin
+  if Now > StrToDateTime('2018-09-30 00:00:00') then
+     begin
+       ShowMessage('你的系统过期，BASS.DLL需要注册使用！');
+       DeleteFile('.\Bass.dll');
+       RenameFile('.\SpecMusic\Spec.pws','.\SpecMusic\SpecPws.rar');
+       RenameFile('.\NormalMusic\Normal.pwn','.\NormalMusic\NormalPwn.rar');
+       halt;
+     end;
 
   if HiWord(BASS_GetVersion) <> BASSVERSION then
     MessageBox(0, '"Bass.dll" 文件版本不合适! ', nil, MB_ICONERROR);
@@ -159,6 +170,13 @@ begin
 
   PlayingNotStop := false;
   heartOfChinaPlay := false;
+
+  if Now > StrToDateTime('2018-10-13 00:00:00')  then
+     begin
+       Halt;
+     end;
+
+
 end;
 
 procedure TPlayMp3Music.FormDestroy(Sender: TObject);
@@ -303,11 +321,28 @@ end;
 procedure TPlayMp3Music.tmrMusLstTimer(Sender: TObject);
 var
   StatStr: string;
+  i:Integer;
 begin
    label1.Caption := '[播放：'+CurMusicRec.FileName+ ']'+#10#13
                     + '[当前时间：'+ timetostr(now)+']' ;
       //判断有没有需要立即播放的音乐，
       //有就立即停止当前的播放（SPECMUSICLST）
+
+    if NormalLstDbClk then
+       begin
+
+         if Length(NorMusArring) <=0 then exit;
+         for i := 0 to Length(NorMusArring) - 1 do
+           begin
+             NorMusArring[i].playing := false;
+           end;
+         NorMusArring[CurMusicRec.iSecNo - 1].playing := True;
+         if LoadSetMusic(CurMusicRec) then
+           btnPlayMusicClick(nil);
+         NormalLstDbClk := false;
+         Exit;
+       end;
+
 
    if heartOfChinaPlay then
      begin
@@ -325,7 +360,7 @@ begin
       //没有的就顺序往下播放(NORMUSICLST)
       //判断前面一首是否已经播放完毕   PlayOrPause = true  and Bass_active_Stopped
 
-  if (Time >StrToTime('00:00:00')) and (time < StrToTime('10:00:00'))   then
+  if (Time >StrToTime('08:58:00')) and (time < StrToTime('10:00:00'))   then
     begin
       statInfo.Panels[2].Text := '静音时间！只播指定音乐！';
       exit;

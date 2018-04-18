@@ -3,7 +3,7 @@ unit UntConst;
 interface
 
 uses
-  System.SysUtils, System.Classes;
+  System.SysUtils, System.Classes, Winapi.Windows;
 
 type
   TMusicFileRec = record
@@ -31,6 +31,9 @@ var
 procedure StrToMusRec(sMusicInfo: string; var pMusicRec: TMusicFileRec; Sep: string; PwsFlag: boolean);
 
 procedure SetMusicArray;
+//procedure Get_Shutdown_Privilege;
+//function GetOperatingSystem(): string; //获取操作系统信息
+procedure ShutDownComputer();
 
 implementation
 
@@ -75,6 +78,8 @@ procedure SetMusicArray;
 var
   i, j: integer;
 begin
+  NorMusArring := nil;
+  SpecMusArring := nil;
   j := 0;
   for i := 0 to Length(NorMusArr) - 1 do
   begin
@@ -99,6 +104,57 @@ begin
       SpecMusArring[j].iSecNo := j+1;
       Inc(j);
     end;
+  end;
+end;
+
+procedure Get_Shutdown_Privilege; //获得用户关机特权，仅对Windows NT/2000/XP
+var
+  rl: Cardinal;
+  hToken: NativeUInt;
+  tkp: TOKEN_PRIVILEGES;
+begin
+  OpenProcessToken(GetCurrentProcess, TOKEN_ADJUST_PRIVILEGES or TOKEN_QUERY, hToken);
+  if LookupPrivilegeValue(nil, 'SeShutdownPrivilege', tkp.Privileges[0].Luid) then
+  begin
+    tkp.Privileges[0].Attributes:= SE_PRIVILEGE_ENABLED;
+    tkp.PrivilegeCount:= 1;
+    AdjustTokenPrivileges(hToken, False, tkp, 0, nil, rl);
+  end;
+end;
+
+function GetOperatingSystem(): string; //获取操作系统信息
+var
+  osVerInfo: TOSVersionInfo;
+begin
+  Result:= '';
+  osVerInfo.dwOSVersionInfoSize:= SizeOf(TOSVersionInfo);
+
+  if GetVersionEx(osVerInfo) then
+    case osVerInfo.dwPlatformId of
+    VER_PLATFORM_WIN32_NT:
+      begin
+        Result:= 'WIN_NT'
+      end;
+    VER_PLATFORM_WIN32_WINDOWS:
+      begin
+        Result := 'WIN_95/98';
+      end;
+  end;
+end;
+
+procedure ShutDownComputer();
+begin
+  if GetOperatingSystem() = 'WIN_NT' then
+  begin
+    Get_Shutdown_Privilege();
+    //调用此函数会出现系统关机提示窗口，并允许用户取消关机动作
+    InitiateSystemShutDown(nil, '关机提示：讨厌你,哼哼，所以关了你！', 15, True, False);
+    // InitiateSystemShutDown去掉的话就不显示提示窗口
+    ExitWindowsEx(EWX_SHUTDOWN+EWX_FORCE+EWX_POWEROFF+EWX_FORCEIFHUNG,0);
+  end
+  else
+  begin
+    ExitWindowsEx(EWX_SHUTDOWN+EWX_FORCE+EWX_POWEROFF+EWX_FORCEIFHUNG,0);
   end;
 end;
 

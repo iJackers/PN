@@ -86,14 +86,14 @@ object PlayMp3Music: TPlayMp3Music
         TabOrder = 1
         OnClick = btnPauseClick
       end
-      object btnStop: TBitBtn
+      object btnNextMusic: TBitBtn
         Left = 138
         Top = 2
         Width = 58
         Height = 33
         Caption = #19979#19968#39318
         TabOrder = 2
-        OnClick = btnStopClick
+        OnClick = btnNextMusicClick
       end
       object BitBtn1: TBitBtn
         Left = 202

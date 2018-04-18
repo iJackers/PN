@@ -38,6 +38,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure btnClearMusLstClick(Sender: TObject);
     procedure actClearFileListExecute(Sender: TObject);
+    procedure lvNorLstDblClick(Sender: TObject);
   private
     { Private declarations }
     pwsPath, pwsFlnm: string;
@@ -54,6 +55,8 @@ var
   Mp3Lstfrm: TMp3Lstfrm;
 
 implementation
+
+uses  PlayMp3File;
 
 {$R *.dfm}
 
@@ -245,6 +248,17 @@ begin
       Exit;
     end;
 
+    if isPws then
+       begin
+         SpecMusArr := nil;
+         SpecMusArring := nil;
+       end
+    else
+      begin
+        NorMusArr := nil;
+        NorMusArring := nil;
+      end;
+
     i := 1;
     while not Eof(FlnmTxt) do
     begin
@@ -258,6 +272,28 @@ begin
   SetMusicArray;
 
   ArrayTpSetLstView(isPws);
+end;
+
+procedure TMp3Lstfrm.lvNorLstDblClick(Sender: TObject);
+var
+  i: Integer;
+begin
+  if not Assigned(lvNorLst.Selected) then exit;
+
+  with PlayMp3Music.CurMusicRec do
+  begin
+    iSecNo := lvNorLst.Selected.Caption.ToInteger;
+    PathName := ExtractFileDir(lvNorLst.Selected.SubItems[0]) + '\';
+    FileName := ExtractFileName(lvNorLst.Selected.SubItems[0]);
+    PlayTime := '00:00:00';
+    MusicLen := 0;
+    PlayTimes := 1;
+    IsPlay := true;
+    PlayVol := lvNorLst.Selected.SubItems[3].ToInteger;
+    PLaylfRi := lvNorLst.Selected.SubItems[4].ToInteger;
+    playing := true;
+  end;
+  PlayMp3Music.NormalLstDbClk := true;
 end;
 
 procedure TMp3Lstfrm.ArrayTpSetLstView(bPws: Boolean);

@@ -24,7 +24,7 @@ object Mp3Lstfrm: TMp3Lstfrm
     Top = 0
     Width = 522
     Height = 452
-    ActivePage = tsSpecLst
+    ActivePage = tsNorLst
     Align = alClient
     DoubleBuffered = True
     HotTrack = True
@@ -127,6 +127,7 @@ object Mp3Lstfrm: TMp3Lstfrm
         RowSelect = True
         TabOrder = 0
         ViewStyle = vsReport
+        OnDblClick = lvNorLstDblClick
       end
     end
   end
