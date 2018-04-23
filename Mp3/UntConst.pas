@@ -3,7 +3,7 @@ unit UntConst;
 interface
 
 uses
-  System.SysUtils, System.Classes, Winapi.Windows;
+  System.SysUtils, System.Classes, Winapi.Windows, Vcl.Dialogs;
 
 type
   TMusicFileRec = record
@@ -144,11 +144,12 @@ end;
 
 procedure ShutDownComputer();
 begin
-  if GetOperatingSystem() = 'WIN_NT' then
+  if GetOperatingSystem = 'WIN_NT' then
   begin
-    Get_Shutdown_Privilege();
+    Get_Shutdown_Privilege;
+    //ShowMessage('调用了关机程序！');
     //调用此函数会出现系统关机提示窗口，并允许用户取消关机动作
-    InitiateSystemShutDown(nil, '关机提示：讨厌你,哼哼，所以关了你！', 15, True, False);
+    InitiateSystemShutDown(nil, '关机提示：比较晚了，再见！', 3, true,false);
     // InitiateSystemShutDown去掉的话就不显示提示窗口
     ExitWindowsEx(EWX_SHUTDOWN+EWX_FORCE+EWX_POWEROFF+EWX_FORCEIFHUNG,0);
   end

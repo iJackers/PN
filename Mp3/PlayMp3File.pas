@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, bass, Vcl.ComCtrls, Vcl.StdCtrls,
    Vcl.ExtCtrls, Vcl.Buttons, spectrum_vis, Vcl.Imaging.pngimage, DispatchMp3File,
-  System.DateUtils, UntConst;
+  System.DateUtils, UntConst, Vcl.Menus;
 
 type
   TPlayMp3Music = class(TForm)
@@ -31,6 +31,13 @@ type
     Label1: TLabel;
     BitBtn1: TBitBtn;
     pnl1: TPanel;
+    pm1: TPopupMenu;
+    N22101: TMenuItem;
+    N22401: TMenuItem;
+    N23101: TMenuItem;
+    N0010001: TMenuItem;
+    N23401: TMenuItem;
+    N1: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure btnPlayMusicClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -43,8 +50,16 @@ type
     procedure TimerRenderTimer(Sender: TObject);
     procedure tmrMusLstTimer(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
+    procedure N22101Click(Sender: TObject);
+    procedure N22401Click(Sender: TObject);
+    procedure N23101Click(Sender: TObject);
+    procedure N23401Click(Sender: TObject);
+    procedure N0010001Click(Sender: TObject);
+    procedure N1Click(Sender: TObject);
   private
     { Private declarations }
+    CloseCompute:TTime;
+
     curPlayTime, curMusicTime: double;
     PlayingNotStop: boolean;
     procedure WMMove(var Message: TMessage); message WM_MOVE;
@@ -110,7 +125,6 @@ begin
   tmrMusLst.Enabled := False;
   BASS_ChannelPause(hs);
   PlayingNotStop := false;
-  ShutDownComputer;
 end;
 
 procedure TPlayMp3Music.btnPlayMusicClick(Sender: TObject);
@@ -127,8 +141,6 @@ end;
 procedure TPlayMp3Music.btnNextMusicClick(Sender: TObject);
 begin
   BASS_ChannelStop(hs);
-//  tmrProgress.Enabled := false;
-//  tmrMusLst.Enabled := False;
 end;
 
 procedure TPlayMp3Music.dispCurAndMusicTime(curtime, curalltime: Double);
@@ -176,7 +188,7 @@ begin
        Halt;
      end;
 
-
+  N22101Click(N22101);
 end;
 
 procedure TPlayMp3Music.FormDestroy(Sender: TObject);
@@ -281,6 +293,37 @@ begin
   end;
 end;
 
+procedure TPlayMp3Music.N0010001Click(Sender: TObject);
+begin
+  CloseCompute := StrToTime('00:10:00');
+end;
+
+procedure TPlayMp3Music.N1Click(Sender: TObject);
+begin
+  CloseCompute := StrToTime('05:00:00');
+end;
+
+procedure TPlayMp3Music.N22101Click(Sender: TObject);
+begin
+  CloseCompute := StrToTime('22:10:00');
+end;
+
+procedure TPlayMp3Music.N22401Click(Sender: TObject);
+begin
+  CloseCompute := StrToTime('22:40:00');
+end;
+
+
+procedure TPlayMp3Music.N23101Click(Sender: TObject);
+begin
+  CloseCompute := StrToTime('23:10:00');
+end;
+
+procedure TPlayMp3Music.N23401Click(Sender: TObject);
+begin
+  CloseCompute := StrToTime('23:40:00');
+end;
+
 procedure TPlayMp3Music.scrlbrPosScroll(Sender: TObject; ScrollCode: TScrollCode; var ScrollPos: Integer);
 var
   position: Int64;
@@ -323,6 +366,14 @@ var
   StatStr: string;
   i:Integer;
 begin
+   if (Time > CloseCompute) and
+      ((Time > StrToTime('22:00:00')) or (time < strTotime('05:10:00')))
+   then
+     begin
+       ShutDownComputer;
+     end;
+
+
    label1.Caption := '[播放：'+CurMusicRec.FileName+ ']'+#10#13
                     + '[当前时间：'+ timetostr(now)+']' ;
       //判断有没有需要立即播放的音乐，

@@ -4,7 +4,7 @@ object Mp3Lstfrm: TMp3Lstfrm
   AlphaBlend = True
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
-  Caption = #21046#20316#25773#25918#21015#34920#25991#20214
+  Caption = #25773#25918#21015#34920#25991#20214
   ClientHeight = 500
   ClientWidth = 522
   Color = clBtnFace

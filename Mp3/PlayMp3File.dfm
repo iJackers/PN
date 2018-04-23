@@ -1,8 +1,6 @@
 object PlayMp3Music: TPlayMp3Music
   Left = 80
   Top = 200
-  AlphaBlend = True
-  AlphaBlendValue = 240
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #25773#25918#38899#20048
@@ -3803,6 +3801,7 @@ object PlayMp3Music: TPlayMp3Music
           B0E4EFB0E4EFB0E4EFB0E4EFB0E4EFB0E4EFB0E4EFB0E4EFB0E4EFB0E4EFB0E4
           EFB0E4EFB0E4EFB0E4EFB0E4EFB0E4EFB0E4EFB0E4EFB0E4EFB0E4EFB0E4EFB0
           E4EF}
+        PopupMenu = pm1
         Stretch = True
         ExplicitLeft = 202
         ExplicitTop = 9
@@ -3857,5 +3856,46 @@ object PlayMp3Music: TPlayMp3Music
     OnTimer = tmrMusLstTimer
     Left = 152
     Top = 16
+  end
+  object pm1: TPopupMenu
+    Left = 401
+    Top = 90
+    object N22101: TMenuItem
+      AutoCheck = True
+      Caption = #20851#26426#26102#38388'22:10'
+      Checked = True
+      RadioItem = True
+      OnClick = N22101Click
+    end
+    object N22401: TMenuItem
+      AutoCheck = True
+      Caption = #20851#26426#26102#38388'22:40'
+      RadioItem = True
+      OnClick = N22401Click
+    end
+    object N23101: TMenuItem
+      AutoCheck = True
+      Caption = #20851#26426#26102#38388'23:10'
+      RadioItem = True
+      OnClick = N23101Click
+    end
+    object N23401: TMenuItem
+      AutoCheck = True
+      Caption = #20851#26426#26102#38388'23:40'
+      RadioItem = True
+      OnClick = N23401Click
+    end
+    object N0010001: TMenuItem
+      AutoCheck = True
+      Caption = #20851#26426#26102#38388'00:10'
+      RadioItem = True
+      OnClick = N0010001Click
+    end
+    object N1: TMenuItem
+      AutoCheck = True
+      Caption = #19981#33258#21160#20851#26426
+      RadioItem = True
+      OnClick = N1Click
+    end
   end
 end
