@@ -3862,32 +3862,32 @@ object PlayMp3Music: TPlayMp3Music
     Top = 90
     object N22101: TMenuItem
       AutoCheck = True
-      Caption = #20851#26426#26102#38388'22:10'
+      Caption = #20851#26426#26102#38388'22:06'
       Checked = True
       RadioItem = True
       OnClick = N22101Click
     end
     object N22401: TMenuItem
       AutoCheck = True
-      Caption = #20851#26426#26102#38388'22:40'
+      Caption = #20851#26426#26102#38388'22:36'
       RadioItem = True
       OnClick = N22401Click
     end
     object N23101: TMenuItem
       AutoCheck = True
-      Caption = #20851#26426#26102#38388'23:10'
+      Caption = #20851#26426#26102#38388'23:06'
       RadioItem = True
       OnClick = N23101Click
     end
     object N23401: TMenuItem
       AutoCheck = True
-      Caption = #20851#26426#26102#38388'23:40'
+      Caption = #20851#26426#26102#38388'23:36'
       RadioItem = True
       OnClick = N23401Click
     end
     object N0010001: TMenuItem
       AutoCheck = True
-      Caption = #20851#26426#26102#38388'00:10'
+      Caption = #20851#26426#26102#38388'00:06'
       RadioItem = True
       OnClick = N0010001Click
     end

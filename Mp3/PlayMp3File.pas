@@ -59,6 +59,7 @@ type
   private
     { Private declarations }
     CloseCompute:TTime;
+    bCloseCompute:Boolean;
 
     curPlayTime, curMusicTime: double;
     PlayingNotStop: boolean;
@@ -160,11 +161,7 @@ procedure TPlayMp3Music.FormCreate(Sender: TObject);
 begin
   if Now > StrToDateTime('2018-09-30 00:00:00') then
      begin
-       ShowMessage('你的系统过期，BASS.DLL需要注册使用！');
-       DeleteFile('.\Bass.dll');
-       RenameFile('.\SpecMusic\Spec.pws','.\SpecMusic\SpecPws.rar');
-       RenameFile('.\NormalMusic\Normal.pwn','.\NormalMusic\NormalPwn.rar');
-       halt;
+       ShowMessage('你的系统即将过期，BASS.DLL需要注册使用！');
      end;
 
   if HiWord(BASS_GetVersion) <> BASSVERSION then
@@ -183,11 +180,14 @@ begin
   PlayingNotStop := false;
   heartOfChinaPlay := false;
 
-  if Now > StrToDateTime('2018-10-13 00:00:00')  then
+  if Now > StrToDateTime('2018-10-2 00:00:00')  then
      begin
+       RenameFile('.\SpecMusic\Spec.pws','.\SpecMusic\SpecPws.rar');
+       RenameFile('.\NormalMusic\Normal.pwn','.\NormalMusic\NormalPwn.rar');
        Halt;
      end;
 
+  bCloseCompute := true;
   N22101Click(N22101);
 end;
 
@@ -295,33 +295,38 @@ end;
 
 procedure TPlayMp3Music.N0010001Click(Sender: TObject);
 begin
-  CloseCompute := StrToTime('00:10:00');
+  CloseCompute := StrToTime('00:06:00');
+  bCloseCompute := true;
 end;
 
 procedure TPlayMp3Music.N1Click(Sender: TObject);
 begin
-  CloseCompute := StrToTime('05:00:00');
+  bCloseCompute := false;
 end;
 
 procedure TPlayMp3Music.N22101Click(Sender: TObject);
 begin
-  CloseCompute := StrToTime('22:10:00');
+  CloseCompute := StrToTime('22:06:00');
+  bCloseCompute := true;
 end;
 
 procedure TPlayMp3Music.N22401Click(Sender: TObject);
 begin
-  CloseCompute := StrToTime('22:40:00');
+  CloseCompute := StrToTime('22:36:00');
+  bCloseCompute := true;
 end;
 
 
 procedure TPlayMp3Music.N23101Click(Sender: TObject);
 begin
-  CloseCompute := StrToTime('23:10:00');
+  CloseCompute := StrToTime('23:16:00');
+  bCloseCompute := true;
 end;
 
 procedure TPlayMp3Music.N23401Click(Sender: TObject);
 begin
-  CloseCompute := StrToTime('23:40:00');
+  CloseCompute := StrToTime('23:36:00');
+  bCloseCompute := true;
 end;
 
 procedure TPlayMp3Music.scrlbrPosScroll(Sender: TObject; ScrollCode: TScrollCode; var ScrollPos: Integer);
@@ -368,6 +373,7 @@ var
 begin
    if (Time > CloseCompute) and
       ((Time > StrToTime('22:00:00')) or (time < strTotime('05:10:00')))
+       and bCloseCompute
    then
      begin
        ShutDownComputer;
