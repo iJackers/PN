@@ -1,0 +1,40 @@
+attrib -h -s /s Thumbs.db
+rd /s /q __history
+del /s *.ddp
+del /s *.cfg
+del /s *.drc
+del /s *.o
+del /s *.ppu
+del /s *.rst
+del /s *.*_1
+del /s *.exe
+del /s *.obj
+del /s *.err
+del /s *.dpu
+del /s *.tds
+del /s *.hpp
+del /S *.~*
+del /S *.bak
+del /S *.dcu
+del /S *.elf
+del /S *.dpu
+del /S *.dsk
+del /S *.cfg
+del /S *.dof
+del /S *.kof
+del /S *.hpp
+del /S *.ddp
+del /S *.mps
+del /S *.mpt
+del /S *.map
+del /S *.log
+del /s *.exe
+del /s *.so
+del /s *.stat
+del /s *.tci
+del /s *.local
+del /s *.dfn
+del /s *.identcache
+del /s *.res
+del /s /A Thumbs.db
+pause
