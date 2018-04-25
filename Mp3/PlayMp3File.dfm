@@ -65,6 +65,7 @@ object PlayMp3Music: TPlayMp3Music
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
+        OnClick = Label1Click
       end
       object btnPlayMusic: TBitBtn
         Left = 10

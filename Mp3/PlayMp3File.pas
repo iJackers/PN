@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, bass, Vcl.ComCtrls, Vcl.StdCtrls,
    Vcl.ExtCtrls, Vcl.Buttons, spectrum_vis, Vcl.Imaging.pngimage, DispatchMp3File,
-  System.DateUtils, UntConst, Vcl.Menus;
+  System.DateUtils, UntConst, Vcl.Menus, Winapi.ActiveX;
 
 type
   TPlayMp3Music = class(TForm)
@@ -56,6 +56,7 @@ type
     procedure N23401Click(Sender: TObject);
     procedure N0010001Click(Sender: TObject);
     procedure N1Click(Sender: TObject);
+    procedure Label1Click(Sender: TObject);
   private
     { Private declarations }
     CloseCompute:TTime;
@@ -80,7 +81,7 @@ var
   PlayMp3Music: TPlayMp3Music;
   Mp3Lstfrm: TMp3Lstfrm;
   hs: dword; {流句柄}
-
+  endpointVolume: IAudioEndpointVolume = nil;
 
 
 implementation
@@ -158,7 +159,16 @@ begin
 end;
 
 procedure TPlayMp3Music.FormCreate(Sender: TObject);
+var
+  deviceEnumerator: IMMDeviceEnumerator;
+  defaultDevice: IMMDevice;
 begin
+  //音量有关的函数；
+  CoCreateInstance(CLASS_IMMDeviceEnumerator, nil, CLSCTX_INPROC_SERVER, IID_IMMDeviceEnumerator, deviceEnumerator);
+  deviceEnumerator.GetDefaultAudioEndpoint(eRender, eConsole, defaultDevice);
+  defaultDevice.Activate(IID_IAudioEndpointVolume, CLSCTX_INPROC_SERVER, nil, endpointVolume);
+  //---------------------
+
   if Now > StrToDateTime('2018-09-30 00:00:00') then
      begin
        ShowMessage('你的系统即将过期，BASS.DLL需要注册使用！');
@@ -229,6 +239,15 @@ begin
     Result := NorMusArring[0];
     CurMusicRec := Result;
   end;
+end;
+
+procedure TPlayMp3Music.Label1Click(Sender: TObject);
+var
+  VolumeLevel: Single;
+begin
+  if endpointVolume = nil then Exit;
+  VolumeLevel := 0.50;
+  endpointVolume.SetMasterVolumeLevelScalar(VolumeLevel, nil);
 end;
 
 function TPlayMp3Music.LoadSetMusic(sSetMusic: TMusicFileRec): Boolean;
