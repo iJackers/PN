@@ -80,7 +80,7 @@ end;
 
 procedure TMp3Lstfrm.actOpenLstExecute(Sender: TObject);
 var
-  FlnmLst, sLines: string;
+  FlnmLst: string;
   IsPws: boolean;
 begin
   IsPws := false;

@@ -38,6 +38,7 @@ type
     N0010001: TMenuItem;
     N23401: TMenuItem;
     N1: TMenuItem;
+    chkMute: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure btnPlayMusicClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -56,21 +57,24 @@ type
     procedure N23401Click(Sender: TObject);
     procedure N0010001Click(Sender: TObject);
     procedure N1Click(Sender: TObject);
-    procedure Label1Click(Sender: TObject);
+    procedure chkMuteClick(Sender: TObject);
   private
     { Private declarations }
     CloseCompute:TTime;
     bCloseCompute:Boolean;
 
-    curPlayTime, curMusicTime: double;
+    curPlayTime, curMusicTime: int64;
     PlayingNotStop: boolean;
     procedure WMMove(var Message: TMessage); message WM_MOVE;
-    procedure dispCurAndMusicTime(curtime, curalltime: Double);
+    procedure dispCurAndMusicTime(curtime, curalltime: int64);
     procedure setSpectrum;
     procedure AlignFormAgain;
     function GetNextMusic: TMusicFileRec;
     function LoadSetMusic(sSetMusic: TMusicFileRec): Boolean;
     function loadSpceMusic: Boolean;
+    procedure SetSysVolumeWithVolArr;
+    procedure SetSysVolWithIni;
+    procedure StrsToTimeVol(sTimeVolInfo:string);
   public
     CurMusicRec: TMusicFileRec;
     heartOfChinaPlay ,NormalLstDbClk :Boolean;
@@ -87,6 +91,7 @@ var
 implementation
 
 {$R *.dfm}
+
 
 procedure TPlayMp3Music.AlignFormAgain;
 begin
@@ -140,22 +145,27 @@ begin
   trckbrAttXwChange(nil);
 end;
 
+procedure TPlayMp3Music.chkMuteClick(Sender: TObject);
+begin
+  if chkMute.Checked then
+     endpointVolume.SetMute(true,nil)
+  else
+    endpointVolume.SetMute(False,nil);
+end;
+
 procedure TPlayMp3Music.btnNextMusicClick(Sender: TObject);
 begin
   BASS_ChannelStop(hs);
 end;
 
-procedure TPlayMp3Music.dispCurAndMusicTime(curtime, curalltime: Double);
+procedure TPlayMp3Music.dispCurAndMusicTime(curtime, curalltime: Int64);
 var
-  sCurTime, sCurAllTime, sCurLstTime: string;
-  sCurTime60, sCurAllTime60: string;
+  sCurTime, sCurAllTime : string;
 begin
-  sCurTime := FormatFloat('0.00', curtime);
-  sCurAllTime := FormatFloat('0.00', curalltime);
-  sCurTime60 := FormatFloat('0.00', curtime/60);
-  sCurAllTime60 := FormatFloat('0.00', curalltime/60);
-  sCurLstTime := Concat('[',sCurAllTime, '/', sCurTime,']','--','[',sCurAllTime60, '/', sCurTime60,']');
-  statInfo.Panels[3].Text := sCurLstTime;
+  sCurTime := FormatDateTime('nn:ss', IncSecond(0, curtime));
+  sCurAllTime := FormatDateTime('nn:ss', IncSecond(0, curalltime));
+
+  statInfo.Panels[3].Text := Concat('[',sCurTime, '--', sCurALLTime,']');
 end;
 
 procedure TPlayMp3Music.FormCreate(Sender: TObject);
@@ -169,9 +179,13 @@ begin
   defaultDevice.Activate(IID_IAudioEndpointVolume, CLSCTX_INPROC_SERVER, nil, endpointVolume);
   //---------------------
 
+  SetSysVolWithIni; //设置音量时间列表
+  SetSysVolumeWithVolArr;
+
+
   if Now > StrToDateTime('2018-09-30 00:00:00') then
      begin
-       ShowMessage('你的系统即将过期，BASS.DLL需要注册使用！');
+       ShowMessage('你的系统二周后即将过期，BASS.DLL需要注册使用！');
      end;
 
   if HiWord(BASS_GetVersion) <> BASSVERSION then
@@ -190,7 +204,7 @@ begin
   PlayingNotStop := false;
   heartOfChinaPlay := false;
 
-  if Now > StrToDateTime('2018-10-2 00:00:00')  then
+  if Now > StrToDateTime('2018-10-15 00:00:00')  then
      begin
        RenameFile('.\SpecMusic\Spec.pws','.\SpecMusic\SpecPws.rar');
        RenameFile('.\NormalMusic\Normal.pwn','.\NormalMusic\NormalPwn.rar');
@@ -241,15 +255,6 @@ begin
   end;
 end;
 
-procedure TPlayMp3Music.Label1Click(Sender: TObject);
-var
-  VolumeLevel: Single;
-begin
-  if endpointVolume = nil then Exit;
-  VolumeLevel := 0.50;
-  endpointVolume.SetMasterVolumeLevelScalar(VolumeLevel, nil);
-end;
-
 function TPlayMp3Music.LoadSetMusic(sSetMusic: TMusicFileRec): Boolean;
 var
   sMp3: string;
@@ -265,8 +270,8 @@ begin
     statInfo.Panels[0].Text := '打开失败B'
   else
   begin
-    curMusicTime := BASS_ChannelBytes2Seconds(hs, BASS_ChannelGetLength(hs, BASS_POS_BYTE)); {总秒数}
-    scrlbrPos.Max := Trunc(curMusicTime * 1000);
+    curMusicTime := Trunc(BASS_ChannelBytes2Seconds(hs, BASS_ChannelGetLength(hs, BASS_POS_BYTE))); {总秒数}
+    scrlbrPos.Max := curMusicTime * 1000;
     //Mp3Lstfrm.lvSpecLst.Items.Item[0].SubItems[2] := Trunc(curMusicTime).ToString;
     //保存音乐时间
     scrlbrPos.Enabled := True;
@@ -355,7 +360,7 @@ begin
   btnPause.Click;
   position := BASS_ChannelSeconds2Bytes(hs, ScrollPos / 1000);
   BASS_ChannelSetPosition(hs, position, BASS_POS_BYTE);
-  dispCurAndMusicTime((position / 1000), curMusicTime);
+  dispCurAndMusicTime(Trunc(position / 1000), curMusicTime);
   tmrProgressTimer(nil);
   btnPlayMusic.Click;
 end;
@@ -374,6 +379,81 @@ begin
   end;
 end;
 
+procedure TPlayMp3Music.SetSysVolumeWithVolArr;
+var
+  I: Integer;
+  sysvolumn:integer;
+  SingVol:single;
+begin
+  for I := 0 to Length(TimeVolArr) -1 do
+    begin
+      if Time >= TimeVolArr[i].sTime then
+         sysvolumn := TimeVolArr[i].iVolumn;
+    end;
+  if sysvolumn >= 0 then
+
+  SingVol := sysvolumn / 100;
+  if endpointVolume = nil then Exit;
+  endpointVolume.SetMasterVolumeLevelScalar(singVol, nil);
+  statInfo.Panels[1].Text := '当前系统音量：'+sysvolumn.ToString + '%'
+end;
+
+procedure TPlayMp3Music.SetSysVolWithIni;
+var
+  VolIniFile:string;
+  sLines: string;
+  FlnmTxt: TextFile;
+  i:integer;
+begin
+  VolIniFile := ExtractFileDir(ParamStr(0)) + '\MyMp3.ini';
+  if FileExists(VolIniFile) then
+  begin
+    AssignFile(FlnmTxt, VolIniFile);
+    Reset(FlnmTxt);
+    readln(FlnmTxt, sLines);
+    if (sLines <> '#This is System Volumn Setting File#') then
+    begin
+      showmessage('不是正常的音量文件，请联系开发人员！');
+      Exit;
+    end;
+    Readln(FlnmTxt,sLines);
+
+    i:=1;
+    while not Eof(FlnmTxt) do
+    begin
+      Readln(FlnmTxt, sLines);
+      if sLines = '' then  Continue;
+      sLines := i.ToString + sLines;
+      StrsToTimeVol(sLines);
+      Inc(i);
+    end;
+    CloseFile(FlnmTxt);
+  end;
+end;
+
+procedure TPlayMp3Music.StrsToTimeVol(sTimeVolInfo:string);
+var
+  strs: TStrings;
+  aTimeVol :TTimeVolRec;
+  tsttime:TDateTime;
+begin
+  strs := TStringList.Create;
+  strs.Delimiter := '#';
+  strs.DelimitedText := sTimeVolInfo;
+
+  if TryStrToTime(strs[1],tsttime) and (strs[2].ToInteger > 0)
+         and (strs[2].ToInteger < 100 ) then
+    begin
+      aTimeVol.iNO     := strs[0].ToInteger;
+      aTimeVol.sTime   := StrToTime(strs[1]);
+      aTimeVol.iVolumn := strs[2].ToInteger;
+
+      SetLength(TimeVolArr, Length(TimeVolArr) + 1);
+      TimeVolArr[Length(TimeVolArr)-1] := aTimeVol;
+    end;
+  strs.Free;
+end;
+
 procedure TPlayMp3Music.TimerRenderTimer(Sender: TObject);
 var
   FFTFata: TFFTData;
@@ -389,7 +469,16 @@ procedure TPlayMp3Music.tmrMusLstTimer(Sender: TObject);
 var
   StatStr: string;
   i:Integer;
+  boolmute:Boolean;
 begin
+  boolMute := False;
+  endpointVolume.GetMute(boolMute);
+  if boolMute then
+     chkMute.Checked := true
+  else
+    chkMute.Checked := False;
+
+
    if (Time > CloseCompute) and
       ((Time > StrToTime('22:00:00')) or (time < strTotime('05:10:00')))
        and bCloseCompute
@@ -397,7 +486,6 @@ begin
      begin
        ShutDownComputer;
      end;
-
 
    label1.Caption := '[播放：'+CurMusicRec.FileName+ ']'+#10#13
                     + '[当前时间：'+ timetostr(now)+']' ;
@@ -456,7 +544,10 @@ begin
         StatStr := '停止状态';
         //载入下一首，并播放；
         if LoadSetMusic(GetNextMusic) then
+        begin
+          SetSysVolumeWithVolArr;
           btnPlayMusicClick(nil);
+        end;
       end;
     BASS_ACTIVE_PLAYING:
       StatStr := '正在播放';
@@ -471,9 +562,9 @@ end;
 
 procedure TPlayMp3Music.tmrProgressTimer(Sender: TObject);
 begin
-  curPlayTime := BASS_ChannelBytes2Seconds(hs, BASS_ChannelGetPosition(hs, BASS_POS_BYTE));
-  dispCurAndMusicTime(curMusicTime, curPlayTime);
-  scrlbrPos.Position := Trunc(curPlayTime * 1000);
+  curPlayTime := Trunc(BASS_ChannelBytes2Seconds(hs, BASS_ChannelGetPosition(hs, BASS_POS_BYTE)));
+  dispCurAndMusicTime(curPlayTime,curMusicTime);
+  scrlbrPos.Position := curPlayTime * 1000;
 end;
 
 procedure TPlayMp3Music.trckbrAttXwChange(Sender: TObject);

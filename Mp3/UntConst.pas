@@ -23,6 +23,14 @@ type
 
   PMusicFileList = ^TMusicFileRec;
 
+type
+  TTimeVolRec = record
+    iNO:Integer;
+    sTime:TTime;
+    iVolumn:integer;
+  end;
+  PTimeVolRec = ^TTimeVolRec;
+
 Type
   TDeviceName = (Master, Microphone, WaveOut, Synth);
 
@@ -125,6 +133,7 @@ var
   SpecMusArring: array of TMusicFileRec;
   NorMusArr: array of TMusicFileRec;
   NorMusArring: array of TMusicFileRec;
+  TimeVolArr: array of TTimeVolRec;
 
 procedure StrToMusRec(sMusicInfo: string; var pMusicRec: TMusicFileRec; Sep: string; PwsFlag: boolean);
 
@@ -139,6 +148,9 @@ procedure SetMusicArray;
 procedure ShutDownComputer();
 
 implementation
+
+
+
 
 procedure StrToMusRec(sMusicInfo: string; var pMusicRec: TMusicFileRec; Sep: string; PwsFlag: boolean);
 var
