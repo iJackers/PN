@@ -192,7 +192,6 @@ end;
 
 function TMp3Lstfrm.doLvAddMusicLst(sMusicInfo: string; IsPws: boolean): boolean;
 var
-  musicItem: TListItem;
   MusicRec: TMusicFileRec;
 begin
   try
@@ -275,11 +274,8 @@ begin
 end;
 
 procedure TMp3Lstfrm.lvNorLstDblClick(Sender: TObject);
-var
-  i: Integer;
 begin
   if not Assigned(lvNorLst.Selected) then exit;
-
   with PlayMp3Music.CurMusicRec do
   begin
     iSecNo := lvNorLst.Selected.Caption.ToInteger;

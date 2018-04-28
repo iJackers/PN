@@ -35,6 +35,10 @@ object Mp3Lstfrm: TMp3Lstfrm
     TabOrder = 0
     object tsSpecLst: TTabSheet
       Caption = #23450#26102#25773#25918#21015#34920
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lvSpecLst: TListView
         Left = 0
         Top = 0
@@ -86,6 +90,10 @@ object Mp3Lstfrm: TMp3Lstfrm
     object tsNorLst: TTabSheet
       Caption = #38543#26426#38899#20048#21015#34920
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lvNorLst: TListView
         Left = 0
         Top = 0

@@ -390,9 +390,10 @@ begin
       if Time >= TimeVolArr[i].sTime then
          sysvolumn := TimeVolArr[i].iVolumn;
     end;
-  if sysvolumn >= 0 then
 
-  SingVol := sysvolumn / 100;
+  SingVol := 0;
+
+  if sysvolumn >= 0 then  SingVol := sysvolumn / 100;
   if endpointVolume = nil then Exit;
   endpointVolume.SetMasterVolumeLevelScalar(singVol, nil);
   statInfo.Panels[1].Text := '当前系统音量：'+sysvolumn.ToString + '%'
@@ -469,16 +470,7 @@ procedure TPlayMp3Music.tmrMusLstTimer(Sender: TObject);
 var
   StatStr: string;
   i:Integer;
-  boolmute:Boolean;
 begin
-  boolMute := False;
-  endpointVolume.GetMute(boolMute);
-  if boolMute then
-     chkMute.Checked := true
-  else
-    chkMute.Checked := False;
-
-
    if (Time > CloseCompute) and
       ((Time > StrToTime('22:00:00')) or (time < strTotime('05:10:00')))
        and bCloseCompute
