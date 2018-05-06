@@ -15195,7 +15195,7 @@ object PlayMp3Music: TPlayMp3Music
         Width = 120
       end
       item
-        Width = 100
+        Width = 160
       end
       item
         Width = 50

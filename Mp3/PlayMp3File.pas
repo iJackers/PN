@@ -136,6 +136,7 @@ end;
 
 procedure TPlayMp3Music.btnPlayMusicClick(Sender: TObject);
 begin
+  WritePlayMusicToLog(CurMusicRec);
   BASS_ChannelPlay(hs, False);
   tmrProgress.Enabled := true;
   tmrMusLst.Enabled := true;

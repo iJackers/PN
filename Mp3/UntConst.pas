@@ -23,6 +23,8 @@ type
 
   PMusicFileList = ^TMusicFileRec;
 
+const
+   sLogDir = 'D:\Music\log';
 type
   TTimeVolRec = record
     iNO:Integer;
@@ -135,6 +137,7 @@ var
   NorMusArring: array of TMusicFileRec;
   TimeVolArr: array of TTimeVolRec;
 
+procedure WritePlayMusicToLog(curMusRec:TMusicFileRec);
 procedure StrToMusRec(sMusicInfo: string; var pMusicRec: TMusicFileRec; Sep: string; PwsFlag: boolean);
 
 procedure setSystemVolume(DN:TDeviceName; Value : Word);
@@ -150,7 +153,30 @@ procedure ShutDownComputer();
 implementation
 
 
+procedure WritePlayMusicToLog(curMusRec:TMusicFileRec);
+var
+  LogText:TextFile;
+  LogFileName:string;
+  sLinesTxt:string;
+begin
+  //write Music Playing Log;
+  if Not DirectoryExists(sLogDir) then CreateDir(sLogDir);
+  LogFileName := sLogDir + '\Log' + FormatDateTime('yyyymmdd',now) + '.PLOG';
 
+
+  AssignFile(LogText, LogFileName);
+  if FileExists(LogFileName) then
+     Reset(LogText)
+  else
+     Rewrite(LogText);
+
+  sLinesTxt :=  FormatDateTime('yyyymmdd  hh:nn:ss',now) + Chr(9)
+               + curMusRec.PathName + curMusRec.FileName + chr(9)
+               + 'VOLUMN:' +curMusRec.PlayVol.ToString;
+  Append(LogText);
+  Writeln(logtext,sLinesTxt);
+  CloseFile(logtext);
+end;
 
 procedure StrToMusRec(sMusicInfo: string; var pMusicRec: TMusicFileRec; Sep: string; PwsFlag: boolean);
 var
