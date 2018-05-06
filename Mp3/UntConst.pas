@@ -146,6 +146,7 @@ function  GetVolumeMute(DN:TDeviceName) : Boolean;
 procedure  SetVolumeMute(DN:TDeviceName; Value:Boolean);
 
 procedure SetMusicArray;
+procedure RandNorMusArr;
 //procedure Get_Shutdown_Privilege;
 //function GetOperatingSystem(): string; //获取操作系统信息
 procedure ShutDownComputer();
@@ -235,6 +236,8 @@ begin
   if j > 0 then
     NorMusArring[j - 1].playing := true;
 
+  RandNorMusArr;
+
   j := 0;
   for i := 0 to Length(SpecMusArr) - 1 do
   begin
@@ -246,6 +249,41 @@ begin
       Inc(j);
     end;
   end;
+end;
+
+procedure RandNorMusArr;
+var
+  i,iLen,iLen1:integer;
+  iRand:integer;
+begin
+  iLen := Length(NorMusArring);
+  iLen1 := 0 ;
+  NorMusArr := nil;
+  SetLength(NorMusArr,iLen);
+  for I := 0 to iLen -1 do
+    begin
+      NorMusArr[i].iSecNo := -1;
+    end;
+
+  for i := 0 to iLen - 1 do
+    begin
+      iLen1 := Length(NorMusArring);
+      Randomize;
+      iRand := Random(iLen);
+      while (NorMusArr[iRand].iSecNo) <> -1 do
+        begin
+          iRand := Random(iLen);
+        end;
+      NorMusArr[iRand] := NorMusArring[iLen1 -1];
+      SetLength(NorMusArring,iLen1 -1);
+    end;
+
+  SetLength(NorMusArring,iLen);
+  for i := 0 to iLen - 1 do
+    begin
+      NorMusArring[i] := NorMusArr[i];
+      NorMusArring[i].iSecNo := i + 1;
+    end;
 end;
 
 procedure Get_Shutdown_Privilege; //获得用户关机特权，仅对Windows NT/2000/XP

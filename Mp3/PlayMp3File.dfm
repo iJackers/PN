@@ -3,7 +3,7 @@ object PlayMp3Music: TPlayMp3Music
   Top = 200
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
-  Caption = #25773#25918#38899#20048
+  Caption = #25773#25918#38899#20048'-'#38543#26426
   ClientHeight = 289
   ClientWidth = 510
   Color = clBtnFace
